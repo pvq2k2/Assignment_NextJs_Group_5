@@ -92,27 +92,9 @@ const Header = (props: Props) => {
             </div>
           </div>
           <div className={styles.cart}>
-            {/* cái này để lmj em
-             cái này là cái thằng chứa icon với cái box kia á
-             được chưa e
-             lú cái đầu a
-             :))
-            sao e lại để ở thằng chứa nó nhỉ
-            núc em code lú á
-            
-            */}
             <MdOutlineShoppingBag className={styles.ic}  onClick={() => setShowModelCart(!showModelCart)} />
             <div ref={boxCart} className={styles.box}>
               <div onClick={(e) => { e.stopPropagation(); setShowModelCart(!showModelCart)}} className={styles.overlay}></div> 
-              {/* ?? cái nền đen ý a vì cái này ở trên nút bấm e em cũng lm 1 cái tương tự mà nó k bị cơ */}
-              {/* ý e là khi click vào cái nền đen thì nó cũng close đúng k đr a
-              
-              vậy e đọc thêm cái này nhé z-index
-              em có để z index mà a
-              mà nó có được đâu mà
-
-
-              */}
               <div className={styles.content}>
                 <div className={styles.h_cart}>
                   <div className={styles.close}>
