@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap');
+
+.body{
+  font-family: 'Noto Sans JP', sans-serif;
+  width: 460px;
+  height: 465px;
+margin: 20px auto 0;
+
+}
+.action{
+  border-radius: 5px ;
+  border: 1px solid #cdc8c8;
+}
+.h1, .label{
+  color: DodgerBlue;
+}
+/* Full-width input fields */
+  .input[type=text], .input[type=password] {
+  width: 422px;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+ height: 50px;
+  resize: vertical;
+  padding:15px;
+  border-radius:15px;
+  border:0;
+  box-shadow:2px 2px 10px rgb(217 209 209);
+}
+
+.input[type=text]:focus, .input[type=password]:focus {
+  outline: none;
+}
+.checkbox{
+  margin-bottom:15px
+}
+
+.hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+/* Set a style for all buttons */
+.button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 422px;
+  opacity: 0.9;
+}
+
+.button:hover {
+  opacity:1;
+}
+
+/* Extra styles for the cancel button */
+.cancelbtn {
+  padding: 14px 20px;
+  background-color: #f44336;
+}
+
+/* Float cancel and signup buttons and add an equal width */
+.signupbtn {
+  float: left;
+  width: 422px;
+  border-radius:15px;
+  border:0;
+  box-shadow:4px 4px 10px rgba(0,0,0,0.2);
+}
+
+/* Add padding to container elements */
+.container {
+  padding: 16px;
+}
+
+/* Clear floats */
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
