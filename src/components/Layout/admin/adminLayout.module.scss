@@ -1,0 +1,236 @@
+// mixin
+@mixin curveOutside {
+  content: "";
+  position: absolute;
+  right: 0;
+  width: 50px;
+  height: 50px;
+  background-color: transparent;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+}
+
+.navigation {
+    position: fixed;
+    width: 300px;
+    height: 100%;
+    background: blue;
+    border-left: 10px solid blue;
+    transition: 0.5s;
+    overflow: hidden;
+
+    &.active {
+      width: 80px;
+    }
+
+    & ul {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+
+      li {
+        position: relative;
+        width: 100%;
+        list-style: none;
+        border-top-left-radius: 30px;
+        border-bottom-left-radius: 30px;
+
+        &:nth-child(1) {
+            margin-bottom: 40px;
+            pointer-events: none;
+        }
+
+        &:hover,
+        &.active {
+          background-color: white;
+        }
+
+        &:hover a,
+        &.active a {
+          color: blue;
+        }
+
+        &:hover a::before,
+        &.active a::before {
+          @include curveOutside;
+          top: -50px;
+          box-shadow: 35px 35px 0 10px white;
+        }
+
+        &:hover a::after,
+        &.active a::after {
+          @include curveOutside;
+          bottom: -50px;
+          box-shadow: 35px -35px 0 10px white;
+        }
+
+        a {
+          position: relative;
+          width: 100%;
+          display: flex;
+          align-items: center;
+          text-align: center;
+          text-decoration: none;
+          color: white;
+
+          .icon {
+            position: relative;
+            display: flex;
+            align-items: center;
+            padding-left: 20px;
+            min-width: 60px;
+            height: 60px;
+            line-height: 75px;
+
+            .io {
+              font-size: 1.75rem;
+            }
+          }
+
+          .title {
+            position: relative;
+            display: block;
+            padding: 0 10px;
+            height: 60px;
+            line-height: 60px;
+            text-align: start;
+            white-space: nowrap;
+          }
+        }
+      }
+    }
+  }
+
+  .main {
+    position: absolute;
+    width: calc(100% - 300px);
+    left: 300px;
+    min-height: 100vh;
+    background: white;
+    transition: 0.5s;
+
+    &.active {
+      width: calc(100% - 80px);
+      left: 80px;
+    }
+
+    .topbar {
+      width: 100%;
+      height: 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 10px;
+    }
+
+    .toggle {
+      position: relative;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2.5rem;
+      cursor: pointer;
+    }
+
+    .search {
+      position: relative;
+      width: 400px;
+      margin: 0 10px;
+
+      label {
+        position: relative;
+        width: 100%;
+
+        input {
+          width: 100%;
+          height: 35px;
+          border-radius: 40px;
+          padding: 5px 20px;
+          padding-left: 35px;
+          font-size: 15px;
+          outline: none;
+          border: 1px solid gray;
+        }
+
+        .io {
+          position: absolute;
+          top: 0;
+          left: 10px;
+          font-size: 1.2rem;
+        }
+      }
+    }
+  }
+
+  .user {
+    position: relative;
+    margin-right: 15px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+@media (max-width: 991px) {
+  .navigation {
+    left: -300px;
+
+    &.active {
+      width: 300px;
+      left: 0;
+    }
+  }
+  .main {
+    width: 100%;
+    left: 0;
+
+    &.active {
+      left: 300px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .navigation {
+    width: 100%;
+    left: -100%;
+    z-index: 1000;
+
+    &.active {
+      width: 100%;
+      left: 0;
+    }
+  }
+  .toggle {
+    z-index: 10001;
+  }
+  .user {
+    min-width: 40px;
+  }
+  .main.active .toggle {
+    color: #fff;
+    position: fixed;
+    right: 0;
+    left: initial;
+  }
+}
+
+
+
