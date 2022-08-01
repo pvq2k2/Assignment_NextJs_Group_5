@@ -56,7 +56,6 @@ const Banner = (props: Props) => {
             </Slider>
           </ul>
         </section>
-    
         </div>
       );
 }
