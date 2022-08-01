@@ -83,10 +83,10 @@ const Header = (props: Props) => {
             <div ref={boxUser} className={styles.box}>
               <ul>
                 <li>
-                  <a href="#">Đăng nhập</a>
+                  <Link href="signin">Đăng nhập</Link>
                 </li>
                 <li>
-                  <a href="#">Đăng ký</a>
+                  <Link href="signup">Đăng ký</Link>
                 </li>
               </ul>
             </div>
@@ -153,24 +153,24 @@ const Header = (props: Props) => {
         <div onClick={() => setShowNav(!showNav)} className={styles.overlay}></div>
         <ul>
           <li>
-            <a href="#">
+            <Link href="/">
               Trang chủ
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#">
+            <Link href="#">
               Sản phẩm
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#">
+            <Link href="#">
               Giới thiệu
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#">
+            <Link href="/contact">
               Liên hệ
-            </a>
+            </Link>
           </li>
         </ul>
       </nav>
