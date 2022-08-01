@@ -24,7 +24,7 @@ const Signup = (props: Signup) => {
                                     </label>
 
                                     <div  className={styles.clearfix}>
-                                        <button className={`${styles.button} ${styles.signupbtn}`}  type="submit" >Sign Up</button>
+                                        <button className={`${styles.button} ${styles.signupbtn}`}  type="submit" >Đăng ký</button>
                                     </div>
                                 </div>
                             </form>
