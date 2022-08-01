@@ -153,7 +153,7 @@ const Header = (props: Props) => {
         <div onClick={() => setShowNav(!showNav)} className={styles.overlay}></div>
         <ul>
           <li>
-            <a href="#">
+            <a href="/">
               Trang chủ
             </a>
           </li>
@@ -168,7 +168,7 @@ const Header = (props: Props) => {
             </a>
           </li>
           <li>
-            <a href="#">
+            <a href="contact">
               Liên hệ
             </a>
           </li>
