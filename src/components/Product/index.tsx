@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './styles/products.module.scss'
+import styles from './Products.module.css'
 const Products = () => {
   return (
     <div>
