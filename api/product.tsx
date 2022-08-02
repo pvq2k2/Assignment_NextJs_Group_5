@@ -21,7 +21,7 @@ export const updateProduct = (product: IProduct): Promise<IProduct> => {
     return instance.put(url, product);
 }
 
-export const removeProduct = (id: number | string) => {
+export const removeProduct = (id: number | string): Promise<IProduct> => {
     const url = `/product/${id}`;
-    return instance.delete<IProduct>(url);
+    return instance.delete(url);
 }
