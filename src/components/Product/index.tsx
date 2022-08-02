@@ -1,7 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { getAllP } from '../../features/products/product.slide'
 import styles from './Products.module.css'
 const Products = () => {
+  // const product= useSelector((state: any) => state.product.products)
+  // const dispatch  = useDispatch<any>();
+  // console.log(product);
+  
+  // useEffect(()=>{
+  //   dispatch(getAllP())
+  // },[dispatch])
+  // console.log(product);
   return (
+
     <div>
       <div className={styles.container}>
         <div className={styles.title}>
