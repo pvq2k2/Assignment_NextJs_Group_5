@@ -1,0 +1,266 @@
+.container {
+    padding: 0;
+    width: 95%;
+    margin: auto;
+}
+
+.directional li {
+    display: inline;
+    padding: 2px;
+}
+
+.directional li a {
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+.directional li :hover {
+    text-decoration: underline;
+}
+
+.item_detail {
+    display: flex;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    /* display: grid;
+    grid-template-columns: auto 700px;
+    grid-gap: 40px; */
+}
+
+.item_image {
+    width: 1000px;
+    height: 650px;
+}
+
+.item_image img {
+    width: 100%;
+    height: 650px;
+}
+
+.item_info {
+    width: 700px;
+    margin-left: 40px;
+}
+
+.info_name {
+    font-size: large;
+    text-align: start;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.info_price p {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: x-large;
+    text-align: start;
+    font-weight: 600;
+}
+
+.small {
+    margin-top: -10px;
+    margin-left: 5px;
+    font-size: 20px;
+    text-decoration: underline;
+}
+
+.info_size {
+    margin-top: 20px;
+}
+
+.size_name {
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.nav_size {
+    margin-top: 15px;
+    margin-left: 0px;
+}
+
+.nav_size li {
+    display: inline;
+    padding: 5px;
+}
+
+.nav_size li button {
+    border: solid 1px;
+    width: 60px;
+    height: 60px;
+    font-size: 18px;
+    background-color: white;
+}
+
+.nav_size li button:hover {
+    cursor: pointer;
+    background-color: black;
+    color: #ffffff;
+}
+
+.btn_add button {
+    align-items: center;
+    transition: all ease-in-out 0.3s;
+    width: 400px;
+    height: 50px;
+    background-color: #ffffff;
+    color: #000000;
+    /* margin: 15px 0; */
+    text-transform: uppercase;
+    padding: 10px;
+    border: thin solid #000000;
+    font-size: medium;
+    font-weight: 700;
+    margin-top: 40px;
+}
+
+.btn_add button:hover {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+.titel_desc {
+    font-size: 17px;
+    font-weight: 600;
+    margin-top: 20px;
+}
+
+.info_desc p {
+    font-size: 18px;
+    line-height: 28px;
+    margin-top: 10px;
+}
+
+.amount {
+    width: 300px;
+    margin-top: 30px;
+}
+
+.amount_name {
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.amount_handler {
+    border: solid 1px black;
+    height: 60px;
+    width: 189px;
+    margin-top: 15px;
+}
+
+.amount_btn {
+    margin-top: 0;
+    margin-left: 0px;
+    margin-right: 0;
+}
+
+.amount_btn li {
+    display: inline;
+}
+
+.amount_btn li button {
+    width: 60px;
+    height: 60px;
+    font-size: 26px;
+    border: none;
+    outline: none;
+}
+
+.amount_btn li button:hover {
+    font-size: 28px;
+    cursor: pointer;
+}
+
+@media (max-width: 700px) {
+    .container {
+        padding: 0;
+        width: 100%;
+        margin: auto;
+    }
+    .item_detail {
+        flex-direction: column;
+    }
+    .directional {
+        display: none;
+    }
+    .item_image {
+        width: auto;
+        height: 550px;
+        margin-top: 20px;
+    }
+    .item_image img {
+        width: 100%;
+        height: 550px;
+    }
+    .item_info {
+        width: 700px;
+        margin-left: 40px;
+        padding: 5px;
+    }
+    .info_name h1 {
+        font-size: large;
+        text-align: start;
+        font-weight: bold;
+        margin: 10px 0;
+    }
+    .info_price p {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        font-size: x-large;
+        text-align: start;
+        font-weight: 600;
+    }
+    .row {
+        width: 550px;
+        display: flex;
+        justify-content: space-between;
+    }
+    .info_size {
+        margin-top: 10px;
+    }
+    .item_info {
+        margin-left: 0;
+    }
+    .nav_size li button {
+        border: solid 1px;
+        width: 50px;
+        height: 50px;
+        font-size: 18px;
+        background-color: white;
+    }
+    .amount {
+        width: 200px;
+        margin-top: 10px;
+    }
+    .amount_handler {
+        border: solid 1px black;
+        height: 50px;
+        width: 152px;
+        margin-top: 15px;
+    }
+    .amount_btn {
+        margin-top: 0;
+        margin-left: 0px;
+        margin-right: 0;
+    }
+    .amount_btn li button {
+        // border: solid 1px;
+        width: 50px;
+        height: 50px;
+        // // padding: 10px;
+        // margin-left: 7px;
+        font-size: 26px;
+        border: none;
+        outline: none;
+    }
+    .btn_add {
+        margin-left: 50px;
+        // justify-items: center;
+    }
+    .info_desc {
+        width: 500px;
+    }
+}
