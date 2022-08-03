@@ -72,9 +72,11 @@ const UpdateProduct = () => {
         draggable: true,
         progress: undefined,
       });
-      router.push("/admin/products");
-      reset();
-      setPreview("");
+      setTimeout(() => {
+        router.push("/admin/products");
+      }, 1000);
+      // reset();
+      // setPreview("");
     } catch (error) {
       console.log(error);
     }
