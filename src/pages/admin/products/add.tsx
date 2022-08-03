@@ -21,6 +21,8 @@ const ProductAdd = () => {
   const cateProducts = useSelector((state: any) => state.category.categories);
   const [preview, setPreview] = useState<string>();
   const dispatch = useDispatch<any>();
+  const CLOUDINARY_API = "https://api.cloudinary.com/v1_1/assignmentjs/image/upload";
+  const CLOUDINARY_PRESET = "nextjsproduct";
 
   const {
     register,
@@ -35,7 +37,7 @@ const ProductAdd = () => {
   console.log(cateProducts);
   const onSubmit: SubmitHandler<Inputs> = async (values: Inputs) => {
     try {
-      const { data } = await uploadImage(values.img[0]);
+      const { data } = await uploadImage(values.img[0], CLOUDINARY_API, CLOUDINARY_PRESET);
       values.img = data.url;
       await dispatch(createP(values)).unwrap();
       console.log("value", values);

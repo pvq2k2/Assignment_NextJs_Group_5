@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import Link from 'next/link';
 import React from 'react'
 import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai';
 import { TiPlus } from 'react-icons/ti';
@@ -11,9 +12,15 @@ const CategoriesManager = (props: Props) => {
     <div><div className={styles.content}>
       <header>
         <div className={styles.title}>Categories Manager</div>
-        <button className={styles.btn}>
-          <TiPlus className={styles.io} /> <span>Add Categories</span>
-        </button>
+        <Link href='categories/add' className='sm:ml-3'>
+          <button
+            type='button'
+            className='inline-flex items-center px-3 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+          >
+            <TiPlus className='text-[20px] mr-2' />
+            Add Categories
+          </button>
+        </Link>
       </header>
       <main>
         <table>
