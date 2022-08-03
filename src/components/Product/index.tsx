@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getAllP } from '../../features/products/product.slide'
+import { getAllP } from '../../features/product/product.slide'
 import styles from './Products.module.css'
 const Products = () => {
   const product= useSelector((state: any) => state.product.products)
