@@ -1,11 +1,54 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React from 'react';
-import styles from './styles.module.css';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
+import { signup } from '../../../api/auth';
 type Signup = {};
-
+type Inputs = {
+  name: string;
+  email: string;
+  password: string;
+};
 const Signup = (props: Signup) => {
+  const router = useRouter();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Inputs>();
+
+  const onSubmit: SubmitHandler<Inputs> = async (values: Inputs) => {
+    try {
+      await signup(values);
+      toast.success("Đăng ký thành công !", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      setTimeout(() => {
+        router.push("/signin");
+      }, 1000)
+    } catch (error) {
+      console.log(error);
+      toast.error("Có lỗi xảy ra, vui lòng thử lại!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  };
   return (
     <div>
       <div className='xl:w-[1200px] xl:mx-auto mt-10 shadow-inner rounded-lg mx-3 pb-[20px]'>
@@ -34,6 +77,7 @@ const Signup = (props: Signup) => {
                   id='form-signup'
                   action='#'
                   method='POST'
+                  onSubmit={handleSubmit(onSubmit)}
                 >
                   <input type='hidden' name='remember' defaultValue='true' />
                   <div className='rounded-md shadow-sm -space-y-px'>
@@ -43,11 +87,13 @@ const Signup = (props: Signup) => {
                       </label>
                       <input
                         id='input-username'
+                        {...register("name", { required: "Vui lòng nhập họ tên" })}
                         type='text'
-                        required
+                        // required
                         className='appearance-none relative block w-full px-3 py-2 mt-1 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md ease-in-out duration-300 hover:border-blue-700 focus:outline-none focus:ring-blue-700 focus:border-blue-700 focus:z-10 sm:text-sm'
                         placeholder='Họ tên*'
                       />
+                      <p className="text-red-400 text-xs">{errors.name?.message}</p>
                     </div>
                     <div className='pb-4'>
                       <label htmlFor='input-password' className='py-2'>
@@ -55,11 +101,13 @@ const Signup = (props: Signup) => {
                       </label>
                       <input
                         id='input-password'
+                        {...register("password", { required: "Vui lòng nhập mật khẩu" })}
                         type='password'
-                        required
+                        // required
                         className='appearance-none relative block w-full px-3 py-2 mt-1 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md ease-in-out duration-300 hover:border-blue-700 focus:outline-none focus:ring-blue-700 focus:border-blue-700 focus:z-10 sm:text-sm'
                         placeholder='Mật khẩu*'
                       />
+                      <p className="text-red-400 text-xs">{errors.password?.message}</p>
                     </div>
                     <div className='pb-4'>
                       <label htmlFor='input-email' className='py-2'>
@@ -67,23 +115,13 @@ const Signup = (props: Signup) => {
                       </label>
                       <input
                         id='input-email'
+                        {...register("email", { required: "Vui lòng nhập email" })}
                         type='email'
-                        required
+                        // required
                         className='appearance-none relative block w-full px-3 py-2 mt-1 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md ease-in-out duration-300 hover:border-blue-700 focus:outline-none focus:ring-blue-700 focus:border-blue-700 focus:z-10 sm:text-sm'
                         placeholder='Email*'
                       />
-                    </div>
-                    <div className='mb-4'>
-                      <label htmlFor='input-avatar' className='py-2'>
-                        Ảnh đại điện
-                      </label>
-                      <input
-                        id='input-avatar'
-                        type='file'
-                        required
-                        className='appearance-none rounded-none relative block w-full px-3 py-2 mt-1 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md ease-in-out duration-300 hover:border-blue-500 focus:outline-none focus:ring-blue-500 focus:border-blue-700 focus:z-10 sm:text-sm'
-                        placeholder='Ảnh đại diện'
-                      />
+                      <p className="text-red-400 text-xs">{errors.email?.message}</p>
                     </div>
                   </div>
                   <div>
@@ -96,12 +134,8 @@ const Signup = (props: Signup) => {
                   </div>
                   <p className='mt-3 text-center text-sm text-gray-600'>
                     Bạn đã có tài khoản?
-                    <Link
-                      href='/signin'
-                      className='font-medium ease-in-out duration-300 text-blue-500 hover:text-blue-700'
-                    >
-                        <span className='ml-2 cursor-pointer'>Đăng nhập</span>
-                      
+                    <Link href='/signin'>
+                        <span className='ml-2 cursor-pointer text-blue-500 hover:text-blue-700 font-medium ease-in-out duration-300'>Đăng nhập</span>
                     </Link>
                   </p>
                 </form>
