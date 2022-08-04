@@ -10,33 +10,33 @@ import Swal from 'sweetalert2';
 import { getAllS, removeS } from "../../../features/slide/slide.slice";
 
 const SlideManager = () => {
-//   const slider = useSelector((state: any) => state.slide.slider);
-//   const dispatch = useDispatch<any>();
+  const slider = useSelector((state: any) => state.slide.slides);
+  const dispatch = useDispatch<any>();
 
-//   useEffect(() => {
-//     dispatch(getAllS());
-//   }, [dispatch, slider]);
+  useEffect(() => {
+    dispatch(getAllS());
+  }, [dispatch, slider]);
 
-//   const handleRemove=(id:any)=>{
-//     Swal.fire({
-//       title: 'Are you sure?',
-//       text: "You won't be able to revert this!",
-//       icon: 'warning',
-//       showCancelButton: true,
-//       confirmButtonColor: '#3085d6',
-//       cancelButtonColor: '#d33',
-//       confirmButtonText: 'Yes, delete it!'
-//     }).then(async (result) => {
-//       if (result.isConfirmed) {
-//         await dispatch(removeS(id)).unwrap();
-//         Swal.fire(
-//           'Deleted!',
-//           'Your slide has been deleted.',
-//           'success'
-//         )
-//       }
-//     })
-//   }
+  const handleRemove=(id:any)=>{
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await dispatch(removeS(id)).unwrap();
+        Swal.fire(
+          'Deleted!',
+          'Your slide has been deleted.',
+          'success'
+        )
+      }
+    })
+  }
   return (
     <div>
       <div className={styles.content}>
@@ -63,7 +63,7 @@ const SlideManager = () => {
             </thead>
             <tbody>
 
-              {/* {slider?.map((slide: any, index: any) => (
+              {slider?.map((slide: any, index: any) => (
                               <tr key={slide._id}>
                               <td>{index + 1}</td>
                               <td>
@@ -82,7 +82,7 @@ const SlideManager = () => {
                                 <AiOutlineDelete className={styles.delete} onClick={() => handleRemove(slide._id)} />
                               </td>
                             </tr>
-              ))} */}
+              ))}
 
 
             </tbody>
