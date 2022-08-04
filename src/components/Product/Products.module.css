@@ -15,7 +15,7 @@
 }
 
 .title {
-    margin-top: 180px;
+    
     font-size: 3rem;
     text-align: center;
     font-weight: bold;
@@ -179,7 +179,7 @@
         border-radius: 20px;
         font-size: 16px;
         font-weight: 500;
-        margin-left: 30px;
+        margin-left: 25px;
         margin-right: auto;
         color: white;
         outline: none;
