@@ -8,12 +8,13 @@ import Categories from '../components/Categories'
 import { getAllProduct } from '../../api/product'
 import { getAllCategory } from '../../api/category'
 import { ICategory } from '../models/category'
+import { IProduct } from '../models/product'
 type HomeProps = {
   // sliders: Slider[];
-  // products: Product[];
+  listProducts: IProduct[];
   listCategory: ICategory[];
 };
-const Home = ({listCategory}: HomeProps) => {
+const Home = ({listCategory,listProducts}: HomeProps) => {
   return (
     <div>
     <div className={styles.container}>
@@ -24,14 +25,14 @@ const Home = ({listCategory}: HomeProps) => {
       </Head>
     <Banner/>
     <Categories listCategory={listCategory} />
-    <Products/>
+    <Products listProducts={listProducts}/>
     </div>
         </div>
   )
 }
 export const getStaticProps: GetStaticProps = async () => {
   // const sliders = await getAll();
-  // const products = await getAllProduct();
+  const listProducts = await getAllProduct();
   const listCategory = await getAllCategory();
 
   // if (!sliders || !products || !listCategory || !newsList) {
@@ -43,7 +44,7 @@ export const getStaticProps: GetStaticProps = async () => {
   return {
     props: {
       // sliders,
-      // products,
+      listProducts,
       listCategory,
     },
     revalidate: 60,
