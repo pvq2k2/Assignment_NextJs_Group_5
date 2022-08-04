@@ -3,7 +3,7 @@ import Link from 'next/link';
 import React from 'react'
 import { getAllCategory, readCategory } from '../../../api/category';
 import { ICategory } from '../../models/category';
-import styles from './CategoriesDetail.module.scss';
+import styles from './CategoriesDetail.module.css';
 
 type CategoryProps = {
     detailCate: ICategory;
