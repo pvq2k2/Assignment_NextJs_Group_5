@@ -8,73 +8,73 @@ import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import AdminLayout from "../../../components/Layout/admin";
 import { readC, updateC } from "../../../features/category/category.slice";
+import { readS, updateS } from "../../../features/slide/slide.slice";
 import { uploadImage } from "../../../utils";
-// type Inputs = {
-//   name: string;
-//   img: string;
-// };
+type Inputs = {
+  img: string;
+};
 
 const SlideUpdate = () => {
-//   const [preview, setPreview] = useState<string>();
-//   const dispatch = useDispatch<any>();
-//   const CLOUDINARY_API =
-//     "https://api.cloudinary.com/v1_1/assignmentjs/image/upload";
-//   const CLOUDINARY_PRESET = "nextjsslide";
-//   const router = useRouter();
-//   const id = router.query.id;
+  const [preview, setPreview] = useState<string>();
+  const dispatch = useDispatch<any>();
+  const CLOUDINARY_API =
+    "https://api.cloudinary.com/v1_1/assignmentjs/image/upload";
+  const CLOUDINARY_PRESET = "nextjsslide";
+  const router = useRouter();
+  const id = router.query.id;
 
-//   const {
-//     register,
-//     handleSubmit,
-//     formState: { errors },
-//     reset,
-//   } = useForm<Inputs>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<Inputs>();
 
-//   useEffect(() => {
-//     (async () => {
-//       console.log(slug);
+  useEffect(() => {
+    (async () => {
+      console.log("id",id);
 
-//       const category = await dispatch(readC(slug)).unwrap();
+      const slide = await dispatch(readS(id)).unwrap();
 
-//       console.log(category);
+      console.log(slide);
 
-//       reset(category.category);
-//       setPreview(category.category?.img);
-//     })();
-//   }, [dispatch, slug, reset]);
+      reset(slide);
+      setPreview(slide?.img);
+    })();
+  }, [dispatch, id, reset]);
 
-//   const onSubmit: SubmitHandler<Inputs> = async (values: Inputs) => {
-//     console.log("value", values);
-//     try {
-//       if (typeof values.img === "object") {
-//         const { data } = await uploadImage(
-//           values.img[0],
-//           CLOUDINARY_API,
-//           CLOUDINARY_PRESET
-//         );
-//         values.img = data.url;
-//       }
-//       await dispatch(updateC(values)).unwrap();
-//       console.log("value", values);
+  const onSubmit: SubmitHandler<Inputs> = async (values: Inputs) => {
+    console.log("value", values);
+    try {
+      if (typeof values.img === "object") {
+        const { data } = await uploadImage(
+          values.img[0],
+          CLOUDINARY_API,
+          CLOUDINARY_PRESET
+        );
+        values.img = data.url;
+      }
+      await dispatch(updateS(values)).unwrap();
+      console.log("value", values);
 
-//       toast.success("Update category successfully !", {
-//         position: "top-right",
-//         autoClose: 3000,
-//         hideProgressBar: false,
-//         closeOnClick: true,
-//         pauseOnHover: true,
-//         draggable: true,
-//         progress: undefined,
-//       });
-//       setTimeout(() => {
-//         router.push("/admin/categories");
-//       }, 1000);
-//       // reset();
-//       // setPreview("");
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
+      toast.success("Update slide successfully !", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      setTimeout(() => {
+        router.push("/admin/slider");
+      }, 1000);
+      // reset();
+      // setPreview("");
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div>
       <header className="bg-white shadow">
@@ -101,14 +101,14 @@ const SlideUpdate = () => {
                     <label className="block text-sm font-medium text-gray-700">
                       Image preview
                     </label>
-                    <div className="mt-1 h-40 w-40 relative">
+                    <div className="mt-1 h-60 relative">
                       <img
                         src={
                           preview ||
                           "https://res.cloudinary.com/assignmentjs/image/upload/c_thumb,w_200,g_face/v1648723660/img/noimage_mzjwxl.png"
                         }
                         alt="Preview Image"
-                        className="h-40 w-40 rounded-sm object-cover"
+                        className="h-60 rounded-sm object-cover"
                         // layout="fill"
                       />
                     </div>
