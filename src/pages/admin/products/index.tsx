@@ -79,7 +79,7 @@ const ProductManager = (props: Props) => {
                 </td>
                 <td>{product.price}</td>
                 <td>
-                {product.description.slice(0, 30)}
+                {product.description?.slice(0, 30)}
                 </td>
                 <td className={styles.action}>
                   <Link href={`/admin/products/${product._id}`}>
