@@ -4,6 +4,7 @@ import styles from './adminLayout.module.scss';
 import React, { useEffect, useRef, useState } from 'react'
 import { IoChatbubbleOutline, IoHelpOutline, IoHomeOutline, IoLockClosedOutline, IoLogoOctocat, IoLogOutOutline, IoMenuOutline, IoPeopleOutline, IoSearchOutline, IoSettingsOutline } from 'react-icons/io5'
 import { RiProductHuntLine } from 'react-icons/ri';
+import { TbSlideshow } from 'react-icons/tb';
 import { LayoutProps } from '../../../models/layout';
 import { MdOutlineCategory } from 'react-icons/md';
 import Link from 'next/link';
@@ -43,12 +44,14 @@ const AdminLayout = ({children}: LayoutProps) => {
         </a>
       </li>
       <li>
+      <Link href="/admin">
         <a href="#">
           <span className={styles.icon}>
             <IoHomeOutline className={styles.io} />
           </span>
           <span className={styles.title}>Dashboard</span>
         </a>
+        </Link>
       </li>
       <li>
         <Link href="/admin/products">
@@ -67,6 +70,17 @@ const AdminLayout = ({children}: LayoutProps) => {
             <MdOutlineCategory className={styles.io} />
           </span>
           <span className={styles.title}>Category</span>
+          </a>
+        </Link>
+      </li>
+
+      <li>
+        <Link href="/admin/slide">
+          <a>
+          <span className={styles.icon}>
+            <TbSlideshow className={styles.io} />
+          </span>
+          <span className={styles.title}>Slide</span>
           </a>
         </Link>
       </li>
