@@ -7,8 +7,8 @@ export const getAllCategory = (): Promise<ICategory[]> => {
     return instance.get(url);
 }
 
-export const readCategory = (id: number | string): Promise<ICategory> => {
-    const url = `/category/${id}`;
+export const readCategory = (slug: string): Promise<ICategory> => {
+    const url = `/category/${slug}`;
     return instance.get(url);
 }
 
@@ -18,11 +18,11 @@ export const createCategory = (category: ICategory): Promise<ICategory> => {
 }
 
 export const updateCategory = (category: ICategory): Promise<ICategory> => {
-    const url = `/category/${category._id}`;
+    const url = `/category/${category.slug}`;
     return instance.put(url, category);
 }
 
-export const removeCategory = (id: number | string): Promise<ICategory> => {
-    const url = `/category/${id}`;
+export const removeCategory = (slug: string): Promise<ICategory> => {
+    const url = `/category/${slug}`;
     return instance.delete(url);
 }

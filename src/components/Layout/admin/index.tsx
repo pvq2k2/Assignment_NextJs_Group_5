@@ -3,7 +3,10 @@
 import styles from './adminLayout.module.scss';
 import React, { useEffect, useRef, useState } from 'react'
 import { IoChatbubbleOutline, IoHelpOutline, IoHomeOutline, IoLockClosedOutline, IoLogoOctocat, IoLogOutOutline, IoMenuOutline, IoPeopleOutline, IoSearchOutline, IoSettingsOutline } from 'react-icons/io5'
+import { RiProductHuntLine } from 'react-icons/ri';
 import { LayoutProps } from '../../../models/layout';
+import { MdOutlineCategory } from 'react-icons/md';
+import Link from 'next/link';
 
 
 const AdminLayout = ({children}: LayoutProps) => {
@@ -48,22 +51,26 @@ const AdminLayout = ({children}: LayoutProps) => {
         </a>
       </li>
       <li>
-        <a href="#">
+        <Link href="/admin/products">
+          <a>
           <span className={styles.icon}>
-            <IoPeopleOutline className={styles.io} />
+            <RiProductHuntLine className={styles.io} />
           </span>
-          <span className={styles.title}>Customers</span>
-        </a>
+          <span className={styles.title}>Product</span>
+          </a>
+        </Link>
       </li>
       <li>
-        <a href="#">
+        <Link href="/admin/categories">
+          <a>
           <span className={styles.icon}>
-            <IoChatbubbleOutline className={styles.io} />
+            <MdOutlineCategory className={styles.io} />
           </span>
-          <span className={styles.title}>Messages</span>
-        </a>
+          <span className={styles.title}>Category</span>
+          </a>
+        </Link>
       </li>
-      <li>
+      {/* <li>
         <a href="#">
           <span className={styles.icon}>
             <IoHelpOutline className={styles.io} />
@@ -94,7 +101,7 @@ const AdminLayout = ({children}: LayoutProps) => {
           </span>
           <span className={styles.title}>Sign Out</span>
         </a>
-      </li>
+      </li> */}
     </ul>
   </div>
   {/* ========================= Main ==================== */}
