@@ -19,8 +19,8 @@ export const getAllC = createAsyncThunk("category/getall", async () => {
 
 export const readC = createAsyncThunk(
   "category/read",
-  async (id: number | string) => {
-    const res = await readCategory(id);
+  async (slug: string) => {
+    const res = await readCategory(slug);
     return res;
   }
 );
@@ -43,8 +43,8 @@ export const updateC = createAsyncThunk(
 
 export const removeC = createAsyncThunk(
   "category/remove",
-  async (id: number | string) => {
-    const res = await removeCategory(id);
+  async (slug: string) => {
+    const res = await removeCategory(slug);
   }
 );
 
@@ -57,7 +57,7 @@ const categorySlice = createSlice({
       state.categories=payload||[]
       }),
       build.addCase(removeC.fulfilled,(state,{payload})=>{
-          state.categories= state.categories.filter((item) => item._id !== payload?._id)
+          state.categories= state.categories.filter((item) => item.slug !== payload?.slug)
       }),
       build.addCase(createC.fulfilled,(state,{payload})=>{
           state.categories.push(payload as ICategory)
@@ -66,7 +66,7 @@ const categorySlice = createSlice({
           state.category= payload as ICategory;
       }),
       build.addCase(updateC.fulfilled,(state,{payload})=>{
-          state.categories=state.categories=state.categories.map((item)=>(item._id === payload?._id ? payload :item)) as ICategory[]
+          state.categories=state.categories=state.categories.map((item)=>(item.slug === payload?.slug ? payload :item)) as ICategory[]
        })
     
   },
