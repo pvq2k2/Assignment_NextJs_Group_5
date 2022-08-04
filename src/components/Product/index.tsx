@@ -4,6 +4,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { IProduct } from '../../models/product';
 // import { getAllP } from '../../features/product/product.slide'
+
 import styles from './Products.module.css';
 type ProductProps={
   listProducts:IProduct[];
@@ -43,7 +44,7 @@ const Products = ({listProducts}:ProductProps) => {
                 <p className={styles.item_info_price}>{item.price} <span className={styles.currency_symbol}>₫</span></p>
               </div>
 
-            </div>
+            ))}
           </div>
           ))}
         </div>
