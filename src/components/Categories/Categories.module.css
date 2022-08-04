@@ -1,6 +1,5 @@
 .container {
     padding: 0;
-    width: 90%;
     margin: auto;
 }
 
@@ -14,63 +13,48 @@
 .category {
     margin-top: 30px;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(4, 1fr);
     grid-gap: 20px;
 }
 
-.category_item {
+.category_box {
     overflow: hidden;
-    border-radius: 10px;
-    height: 350px;
 }
 
-.category_image {
-    height: 350px;
-    width: auto;
-    position: relative;
+.category_img {
+    overflow: hidden;
 }
 
-.category_image img {
-    height: 350px;
+.category_box img {
     width: 100%;
-    position: relative;
+    border-radius: 20px;
 }
 
 .category_name {
+    position: relative;
+    bottom: 80px;
     display: flex;
-    position: absolute;
-    /* transform: translateY(-90px); */
-    margin-top: -90px;
 }
 
-.category_image:hover {
-    /* width: 20%; */
-    transform: scale(1.2);
-    transition: 2s;
-    transition-property: all;
-    transition-duration: 0.2s;
-    transition-timing-function: ease;
-    transition-delay: 0s;
-}
-
-.category_name a {
-    text-decoration: none;
+.category_name span {
+    padding: 10px 40px;
+    margin: 0 auto;
     color: white;
+    background-color: #00368e;
     font-size: 16px;
     font-weight: 400;
-}
-
-.category_name button {
-    margin-left: 70px;
-    width: 230px;
-    height: 41px;
     border-radius: 20px;
-    background-color: black;
     line-height: 1.5;
 }
 
-.category_name button:hover {
-    background-color: darkred;
+.category_box img:hover {
+    transform: scale(1.2);
+    transition: all 0.2s ease;
+}
+
+.category_box:hover .category_name span {
+    background-color: blue;
+    transition: all 0.2s ease;
 }
 
 .boder {
@@ -78,103 +62,20 @@
     width: 100%;
 }
 
-@media (max-width: 963px) {
-    .category_name button {
-        margin-left: 20px;
-        width: 175px;
-        height: 41px;
-        border-radius: 20px;
-        background-color: black;
-        line-height: 1.5;
-    }
-    .category_image {
-        height: 340px;
-        width: auto;
-        position: relative;
-    }
-    .category_image img {
-        height: 340px;
-        width: 100%;
-        position: relative;
+@media (max-width: 768px) {
+    .category {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
-@media (max-width: 750px) {
-    .category {
-        /* margin-top: 30px; */
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        grid-gap: 20px;
-    }
-    .category_item {
-        overflow: hidden;
-        border-radius: 10px;
-        height: 320px;
-    }
-    .category_image {
-        height: 320px;
-        width: auto;
-        position: relative;
-    }
-    .category_image img {
-        height: 320px;
-        width: 100%;
-        position: relative;
-    }
-    .category_name {
-        display: flex;
-        justify-items: center;
-        position: absolute;
-        margin-top: -70px;
-    }
-    .category_name button {
-        margin-left: 20px;
-        width: 150px;
-        height: 41px;
-        border-radius: 20px;
-        background-color: black;
-        line-height: 1.5;
+@media (max-width: 500px) {
+    .category_name span {
+        padding: 7px 20px;
     }
 }
 
-@media (max-width: 599px) {
-    .title {
-        margin-top: 5px;
-        font-size: 20px;
-    }
+@media (max-width: 480px) {
     .category {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-gap: 15px;
-        margin-top: 15px;
-    }
-    .category_item {
-        height: 200px;
-    }
-    .category_image {
-        height: 200px;
-        width: auto;
-        position: relative;
-    }
-    .category_image img {
-        height: 200px;
-        width: 100%;
-        position: relative;
-    }
-    .category_name {
-        /* display: flex; */
-        position: absolute;
-        margin-top: -50px;
-    }
-    .category_name button {
-        margin-left: 55px;
-        width: 100px;
-        height: 32px;
-        border-radius: 20px;
-        background-color: black;
-        line-height: 1.5;
-    }
-    .boder {
-        margin-top: 30px;
+        grid-template-columns: repeat(1, 1fr);
     }
 }

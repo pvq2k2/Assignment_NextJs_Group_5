@@ -1,12 +1,19 @@
-import type { NextPage } from 'next'
+import type { GetStaticProps, NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Products from '../components/Product'
 import Banner from '../components/Banner'
 import styles from '../styles/Home.module.css'
 import Categories from '../components/Categories'
-
-const Home: NextPage = () => {
+import { getAllProduct } from '../../api/product'
+import { getAllCategory } from '../../api/category'
+import { ICategory } from '../models/category'
+type HomeProps = {
+  // sliders: Slider[];
+  // products: Product[];
+  listCategory: ICategory[];
+};
+const Home = ({listCategory}: HomeProps) => {
   return (
     <div>
     <div className={styles.container}>
@@ -16,11 +23,30 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
     <Banner/>
-    <Categories />
+    <Categories listCategory={listCategory} />
     <Products/>
     </div>
         </div>
   )
 }
+export const getStaticProps: GetStaticProps = async () => {
+  // const sliders = await getAll();
+  // const products = await getAllProduct();
+  const listCategory = await getAllCategory();
 
+  // if (!sliders || !products || !listCategory || !newsList) {
+  //   return {
+  //     notFound: true,
+  //   };
+  // }
+
+  return {
+    props: {
+      // sliders,
+      // products,
+      listCategory,
+    },
+    revalidate: 60,
+  };
+};
 export default Home
