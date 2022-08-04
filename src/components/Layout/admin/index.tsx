@@ -75,7 +75,7 @@ const AdminLayout = ({children}: LayoutProps) => {
       </li>
 
       <li>
-        <Link href="/admin/slide">
+        <Link href="/admin/slider">
           <a>
           <span className={styles.icon}>
             <TbSlideshow className={styles.io} />
