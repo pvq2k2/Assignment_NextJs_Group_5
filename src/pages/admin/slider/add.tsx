@@ -6,50 +6,50 @@ import { HiOutlineCheck, HiOutlineX } from "react-icons/hi";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import AdminLayout from "../../../components/Layout/admin";
-import { createC } from "../../../features/category/category.slice";
+import { createS } from "../../../features/slide/slide.slice";
 import { uploadImage } from "../../../utils";
-// type Inputs = {
-//     img: string;
-// };
+type Inputs = {
+    img: string;
+};
 
 
 const SlideAdd = () => {
-    // const [preview, setPreview] = useState<string>();
-    // const dispatch = useDispatch<any>();
-    // const CLOUDINARY_API = "https://api.cloudinary.com/v1_1/assignmentjs/image/upload";
-    // const CLOUDINARY_PRESET = "nextjsslide";
+    const [preview, setPreview] = useState<string>();
+    const dispatch = useDispatch<any>();
+    const CLOUDINARY_API = "https://api.cloudinary.com/v1_1/assignmentjs/image/upload";
+    const CLOUDINARY_PRESET = "nextjsslide";
 
 
-    // const {
-    //     register,
-    //     handleSubmit,
-    //     formState: { errors },
-    //     reset,
-    //   } = useForm<Inputs>();
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+        reset,
+      } = useForm<Inputs>();
       
-    //   const onSubmit: SubmitHandler<Inputs> = async (values: Inputs) => {
-    //     try {
-    //       const { data } = await uploadImage(values.img[0], CLOUDINARY_API, CLOUDINARY_PRESET);
-    //       values.img = data.url;
-    //       await dispatch(createC(values)).unwrap();
-    //       console.log("value", values);
+      const onSubmit: SubmitHandler<Inputs> = async (values: Inputs) => {
+        try {
+          const { data } = await uploadImage(values.img[0], CLOUDINARY_API, CLOUDINARY_PRESET);
+          values.img = data.url;
+          await dispatch(createS(values)).unwrap();
+          console.log("value", values);
     
-    //       toast.success("Add category successfully !", {
-    //         position: "top-right",
-    //         autoClose: 5000,
-    //         hideProgressBar: false,
-    //         closeOnClick: true,
-    //         pauseOnHover: true,
-    //         draggable: true,
-    //         progress: undefined,
-    //       });
+          toast.success("Add slide successfully !", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
     
-    //       reset();
-    //       setPreview("");
-    //     } catch (error) {
-    //       console.log(error);
-    //     }
-    //   };
+          reset();
+          setPreview("");
+        } catch (error) {
+          console.log(error);
+        }
+      };
 
 
   return (
@@ -80,14 +80,14 @@ const SlideAdd = () => {
                     <label className="block text-sm font-medium text-gray-700">
                       Image preview
                     </label>
-                    <div className="mt-1 h-40 w-40 relative">
+                    <div className="mt-1 h-60 relative">
                       <img
                         src={
                           preview ||
                           "https://res.cloudinary.com/assignmentjs/image/upload/c_thumb,w_200,g_face/v1648723660/img/noimage_mzjwxl.png"
                         }
                         alt="Preview Image"
-                        className="h-40 w-40 rounded-sm object-cover"
+                        className="h-60  rounded-sm object-cover"
                         // layout="fill"
                       />
                     </div>
