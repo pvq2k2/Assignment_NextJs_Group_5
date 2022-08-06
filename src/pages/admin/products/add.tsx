@@ -12,6 +12,7 @@ import AdminLayout from "../../../components/Layout/admin";
 type Inputs = {
   name: string;
   price: number;
+  size: string;
   description: string;
   category: string;
   img: string;
@@ -107,6 +108,9 @@ const ProductAdd = () => {
                       </div>
                     </div>
                   </div>
+
+
+
                   <div>
                     <label
                       htmlFor="price"
@@ -129,6 +133,32 @@ const ProductAdd = () => {
                       </div>
                     </div>
                   </div>
+                  
+
+                  <div>
+                    <label
+                      htmlFor="size"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Size
+                    </label>
+                    <div className="mt-1">
+                      <input
+                        type="text"
+                        {...register("size", {
+                          required: "Vui lòng nhập size",
+                        })}
+                        id="size-add-product"
+                        className="shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md p-2"
+                        placeholder="Size..."
+                      />
+                      <div className="text-sm mt-0.5 text-red-500">
+                        {errors.size?.message}
+                      </div>
+                    </div>
+                  </div>
+
+
                   <div className="col-span-6 sm:col-span-3">
                     <label
                       htmlFor="category"

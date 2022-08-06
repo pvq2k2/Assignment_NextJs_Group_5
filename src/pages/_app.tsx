@@ -9,12 +9,12 @@ import 'react-toastify/dist/ReactToastify.css';
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const LayoutWrapper = Component.Layout ?? Layout;
   return (
+    <Provider store={store}>
     <LayoutWrapper>
-      <Provider store={store}>
       <Component {...pageProps} />
       <ToastContainer />
-      </Provider>
     </LayoutWrapper>
+    </Provider>
   );
 }
 

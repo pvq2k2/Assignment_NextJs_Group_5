@@ -15,7 +15,7 @@ const Arrow = ({ onClick, direction }: Arrow) => {
       }`}
       onClick={onClick}
     >
-      {direction === "right" ? <FaAngleRight /> : <FaAngleLeft />}
+      {direction === "right" ? <FaAngleRight className={`${styles.icRight} float-left hover:text-black`} /> : <FaAngleLeft className={`${styles.icLeft} float-right hover:text-black`} />}
     </button>
     {/* <FaAngleRight /> */}
     </>
