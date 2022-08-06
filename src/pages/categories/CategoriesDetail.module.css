@@ -3,7 +3,9 @@
     margin: auto;
     width: 95%;
 }
-
+.directional {
+    padding-top: 10px;
+}
 .directional li {
     display: inline;
     padding: 2px;
@@ -65,7 +67,7 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    // width: 100%;
+    /* // width: 100%; */
     letter-spacing: 1.3px;
     text-transform: capitalize;
     cursor: pointer;
@@ -96,7 +98,7 @@
     font-weight: 500;
     word-break: break-word;
     white-space: nowrap;
-    // overflow: hidden;
+    /* // overflow: hidden; */
     text-overflow: ellipsis;
     width: 100%;
     letter-spacing: 1.3px;

@@ -15,11 +15,6 @@
     font-size: 30px;
     position: absolute;
 }
-
-.arrow:hover {
-    color: black;
-}
-
 .banner__box:hover .arrow {
     visibility: visible;
     top: 50%;
@@ -27,4 +22,13 @@
     z-index: 10;
     color: white;
     transition: all 0.5s ease-in-out;
+}
+
+@media (max-width: 768px) {
+    .icLeft {
+        float: left;
+    }
+    .icRight {
+        float: right;
+    }
 }

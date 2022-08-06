@@ -9,9 +9,13 @@ import {
   AiOutlineClose,
   AiOutlineMinus,
   AiOutlinePlus,
-  AiOutlineBars
+  AiOutlineBars,
 } from "react-icons/ai";
 import Image from "next/image";
+import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
+import { IUser } from "../../models/user";
+import { signout } from "../../features/auth/auth.slice";
 type Props = {};
 
 const Header = (props: Props) => {
@@ -23,43 +27,51 @@ const Header = (props: Props) => {
   const [showModelUser, setShowModelUser] = useState<Boolean>(false);
   const [showModelSearch, setShowModelSearch] = useState<Boolean>(false);
   const [showNav, setShowNav] = useState<Boolean>(false);
+  const isLogged = useSelector((state: any) => state.auth.isLogged);
+  const curentUser = useSelector(
+    (state: any) => state.auth.currentUser
+  ) as IUser;
+  const router = useRouter();
+  const dispatch = useDispatch<any>();
 
+  const handleSignout = () => {
+    dispatch(signout());
+  }
   useEffect(() => {
     const boxCartElement = boxCart.current!;
     if (showModelCart) {
-      boxCartElement.style.right = '0px';
+      boxCartElement.style.right = "0px";
     } else {
-      boxCartElement.style.right = '-100%';
+      boxCartElement.style.right = "-100%";
     }
-  }, [showModelCart])
+  }, [showModelCart]);
 
   useEffect(() => {
     const navBarElement = navBar.current!;
     if (showNav) {
-      navBarElement.style.left = '0px';
+      navBarElement.style.left = "0px";
     } else {
-      navBarElement.style.left = '-100%';
+      navBarElement.style.left = "-100%";
     }
-  }, [showNav])
-
+  }, [showNav]);
 
   useEffect(() => {
     const boxUserElement = boxUser.current!;
     if (showModelUser) {
-      boxUserElement.style.display = 'block';
+      boxUserElement.style.display = "block";
     } else {
-      boxUserElement.style.display = 'none';
+      boxUserElement.style.display = "none";
     }
-  }, [showModelUser])
+  }, [showModelUser]);
 
   useEffect(() => {
     const boxSearchElement = boxSearch.current!;
     if (showModelSearch) {
-      boxSearchElement.style.display = 'block';
+      boxSearchElement.style.display = "block";
     } else {
-      boxSearchElement.style.display = 'none';
+      boxSearchElement.style.display = "none";
     }
-  }, [showModelSearch])
+  }, [showModelSearch]);
 
   return (
     <header className={styles.header}>
@@ -75,30 +87,68 @@ const Header = (props: Props) => {
           <AiOutlineSearch className={styles.ic} />
         </div>
         <div className={styles.box_ic}>
-        <div onClick={() => setShowModelSearch(!showModelSearch)} className={styles.ic_search}>
-        <AiOutlineSearch className={styles.ic} />
-        </div>
-          <div onClick={() => setShowModelUser(!showModelUser)} className={styles.user}>
+          <div
+            onClick={() => setShowModelSearch(!showModelSearch)}
+            className={styles.ic_search}
+          >
+            <AiOutlineSearch className={styles.ic} />
+          </div>
+          <div
+            onClick={() => setShowModelUser(!showModelUser)}
+            className={styles.user}
+          >
             <AiOutlineUser className={styles.ic} />
             <div ref={boxUser} className={styles.box}>
-              <ul>
-                <li>
-                  <Link href="signin">Đăng nhập</Link>
-                </li>
-                <li>
-                  <Link href="signup">Đăng ký</Link>
-                </li>
-              </ul>
+              {isLogged ? (
+                <ul>
+                  <li>
+                      <span className="block italic">Xin chào!</span>
+                      <span className="font-bold">{curentUser.user.lastName}</span>
+                  </li>
+                  {curentUser.user.role == 1 ? (
+                    <li>
+                    <Link href="/admin">Trang quản trị</Link>
+                    </li>
+                  ) : null}
+                  <li>
+                    <div onClick={() => handleSignout()}>Đăng xuất</div>
+                  </li>
+                </ul>
+              ) : (
+                <ul>
+                  <li>
+                    <Link href="signin">Đăng nhập</Link>
+                  </li>
+                  <li>
+                    <Link href="signup">Đăng ký</Link>
+                  </li>
+                </ul>
+              )}
             </div>
           </div>
           <div className={styles.cart}>
-            <MdOutlineShoppingBag className={styles.ic}  onClick={() => setShowModelCart(!showModelCart)} />
+            <MdOutlineShoppingBag
+              className={styles.ic}
+              onClick={() => setShowModelCart(!showModelCart)}
+            />
             <div ref={boxCart} className={styles.box}>
-              <div onClick={(e) => { e.stopPropagation(); setShowModelCart(!showModelCart)}} className={styles.overlay}></div> 
+              <div
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowModelCart(!showModelCart);
+                }}
+                className={styles.overlay}
+              ></div>
               <div className={styles.content}>
                 <div className={styles.h_cart}>
                   <div className={styles.close}>
-                    <AiOutlineClose onClick={(e) => { e.stopPropagation(); setShowModelCart(!showModelCart)}} className={styles.ic} />
+                    <AiOutlineClose
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setShowModelCart(!showModelCart);
+                      }}
+                      className={styles.ic}
+                    />
                   </div>
                   <div className={styles.title}>
                     <span>Cart</span>
@@ -150,27 +200,22 @@ const Header = (props: Props) => {
         </div>
       </div>
       <nav ref={navBar} className={styles.navbar}>
-        <div onClick={() => setShowNav(!showNav)} className={styles.overlay}></div>
+        <div
+          onClick={() => setShowNav(!showNav)}
+          className={styles.overlay}
+        ></div>
         <ul>
           <li>
-            <Link href="/">
-              Trang chủ
-            </Link>
+            <Link href="/">Trang chủ</Link>
           </li>
           <li>
-            <Link href="#">
-              Sản phẩm
-            </Link>
+            <Link href="/product">Sản phẩm</Link>
           </li>
           <li>
-            <Link href="#">
-              Giới thiệu
-            </Link>
+            <Link href="#">Giới thiệu</Link>
           </li>
           <li>
-            <Link href="/contact">
-              Liên hệ
-            </Link>
+            <Link href="/contact">Liên hệ</Link>
           </li>
         </ul>
       </nav>

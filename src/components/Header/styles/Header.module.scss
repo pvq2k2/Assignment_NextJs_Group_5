@@ -83,6 +83,16 @@
         ul {
           position: relative;
           list-style-type: none;
+
+          li {
+            padding: 10px;
+
+            &:hover {
+              background-color: blue;
+              color: white;
+              transition: all 0.3s linear;
+            }
+          }
           li:first-child {
             padding: 10px;
             border-top-left-radius: 10px;

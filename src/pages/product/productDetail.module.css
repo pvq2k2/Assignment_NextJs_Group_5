@@ -3,7 +3,9 @@
     width: 95%;
     margin: auto;
 }
-
+.directional {
+    padding-top: 10px;
+}
 .directional li {
     display: inline;
     padding: 2px;
