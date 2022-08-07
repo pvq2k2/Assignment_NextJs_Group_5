@@ -1,14 +1,62 @@
-import Link from 'next/link'
-import React from 'react'
-import { HiOutlineCheck, HiOutlineX } from 'react-icons/hi'
-import AdminLayout from '../../../components/Layout/admin'
+import Link from "next/link";
+import React, { useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { HiOutlineCheck, HiOutlineX } from "react-icons/hi";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
+import AdminLayout from "../../../components/Layout/admin";
+import { createU } from "../../../features/user/user.slice";
+import { uploadImage } from "../../../utils";
 
-type Props = {}
+type Inputs = {
+  name: string;
+  email: string;
+  password: string;
+  avatar: string;
+};
 
-const AddUser = (props: Props) => {
+const AddUser = () => {
+  const [preview, setPreview] = useState<string>();
+  const dispatch = useDispatch<any>();
+  const CLOUDINARY_API =
+    "https://api.cloudinary.com/v1_1/assignmentjs/image/upload";
+  const CLOUDINARY_PRESET = "nextjscategory";
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<Inputs>();
+  const onSubmit: SubmitHandler<Inputs> = async (values: Inputs) => {
+    try {
+      const { data } = await uploadImage(
+        values.avatar[0],
+        CLOUDINARY_API,
+        CLOUDINARY_PRESET
+      );
+      values.avatar = data.url;
+      await dispatch(createU(values)).unwrap();
+      console.log("value", values);
+
+      toast.success("Add user successfully !", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+
+      reset();
+      setPreview("");
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div>
-        <div>
+      <div>
         <header className="bg-white shadow">
           <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex justify-between">
             <h1 className="text-3xl font-bold text-gray-900">User Add</h1>
@@ -29,7 +77,7 @@ const AddUser = (props: Props) => {
               action="#"
               id="form-add-user"
               method="POST"
-              
+              onSubmit={handleSubmit(onSubmit)}
             >
               <div className="shadow sm:rounded-md sm:overflow-hidden">
                 <div className="px-4 py-5 bg-white space-y-6 sm:p-6">
@@ -43,12 +91,16 @@ const AddUser = (props: Props) => {
                     <div className="mt-1">
                       <input
                         type="text"
-                       
+                        {...register("name", {
+                          required: "Vui lòng nhập tên",
+                        })}
                         id="name-add-user"
                         className="shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md p-2"
                         placeholder="Name..."
                       />
-                     
+                      <div className="text-sm mt-0.5 text-red-500">
+                        {errors.name?.message}
+                      </div>
                     </div>
                   </div>
                   <div>
@@ -60,16 +112,20 @@ const AddUser = (props: Props) => {
                     </label>
                     <div className="mt-1">
                       <input
-                        type="Email"
-                       
+                        type="email"
+                        {...register("email", {
+                          required: "Vui lòng nhập email",
+                        })}
                         id="email-add-user"
                         className="shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md p-2"
                         placeholder="Email..."
                       />
-                     
+                      <div className="text-sm mt-0.5 text-red-500">
+                        {errors.email?.message}
+                      </div>
                     </div>
                   </div>
-                  
+
                   <div>
                     <label
                       htmlFor="password"
@@ -80,32 +136,38 @@ const AddUser = (props: Props) => {
                     <div className="mt-1">
                       <input
                         type="password"
-                        
+                        {...register("password", {
+                          required: "Vui lòng nhập password",
+                        })}
                         id="password-add-user"
                         className="shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md p-2"
                         placeholder="Password..."
                       />
-                     
+                      <div className="text-sm mt-0.5 text-red-500">
+                        {errors.password?.message}
+                      </div>
                     </div>
                   </div>
 
                   <div className="col-span-3">
                     <label className="block text-sm font-medium text-gray-700">
-                    Avatar preview
+                      Avatar preview
                     </label>
                     <div className="mt-1 w-40 h-40 relative">
                       <img
-                        src="https://res.cloudinary.com/assignmentjs/image/upload/c_thumb,w_200,g_face/v1648723660/img/noimage_mzjwxl.png"
+                        src={
+                          preview ||
+                          "https://res.cloudinary.com/assignmentjs/image/upload/c_thumb,w_200,g_face/v1648723660/img/noimage_mzjwxl.png"
+                        }
                         alt="Preview Image"
                         className="h-40 w-40 rounded-sm object-cover"
-                        // layout="fill"
                       />
                     </div>
                   </div>
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700">
-                    Avatar
+                      Avatar
                     </label>
                     <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
                       <div className="space-y-1 text-center">
@@ -125,12 +187,22 @@ const AddUser = (props: Props) => {
                         </svg>
                         <div className="flex text-sm text-gray-600">
                           <input
-                           
+                           {...register("avatar",{
+                            required:"Vui lòng chọn ảnh"
+                           })}
+                           onChange={(e:any)=>{
+                            setPreview(
+                                URL.createObjectURL(e.target.files[0])
+                            );
+                           }}
                             id="file-upload"
                             type="file"
                           />
-                          
+                         
                         </div>
+                        <div className="text-sm mt-0.5 text-red-500">
+                            {errors.avatar?.message}
+                          </div>
                       </div>
                     </div>
                   </div>
@@ -150,7 +222,7 @@ const AddUser = (props: Props) => {
         </div>
       </div>
     </div>
-  )
-}
-AddUser.Layout= AdminLayout
-export default AddUser
+  );
+};
+AddUser.Layout = AdminLayout;
+export default AddUser;
