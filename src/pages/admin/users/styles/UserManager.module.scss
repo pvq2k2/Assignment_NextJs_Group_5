@@ -1,0 +1,59 @@
+.content {
+    position: relative;
+    width: 100%;
+    padding: 20px;
+    header {
+        display: flex;
+        justify-content: space-between;
+        padding: 20px 50px;
+        border-radius: 10px;
+        .title {
+            font-size: 30px;
+            font-weight: bold;
+            color: rgb(25, 25, 25);
+        }
+        p::selection {
+            color: #fff;
+            background-color: #bada55;
+            text-shadow: 1p 2px #31808c;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            background-color: rgb(36, 16, 255);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 10px;
+            border: none;
+            .io {
+                font-size: 20px;
+                margin-right: 10px;
+            }
+            &:hover {
+                background-color: rgba(89, 74, 255, 1);
+            }
+        }
+    }
+}
+
+@media (max-width: 991px) {
+    .content {
+        header {
+            padding: 10px;
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .content {
+        header {
+            padding: 10px;
+            .title {
+                font-size: 20px;
+            }
+            .btn {
+                padding: 8px;
+            }
+        }
+    }
+}
