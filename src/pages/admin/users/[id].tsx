@@ -1,11 +1,66 @@
 import Link from "next/link";
-import React from "react";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { HiOutlineCheck, HiOutlineX } from "react-icons/hi";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 import AdminLayout from "../../../components/Layout/admin";
+import { readU, updateU } from "../../../features/user/user.slice";
+import { uploadImage } from "../../../utils";
 
-type Props = {};
+type Inputs = {
+    name:string;
+    email:string,
+    password:string,
+    avatar:string
+};
 
-const UpdateUser = (props: Props) => {
+const UpdateUser = () => {
+    const [preview,setPreview]=useState<string>();
+    const dispatch = useDispatch<any>();
+    const CLOUDINARY_API =
+    "https://api.cloudinary.com/v1_1/assignmentjs/image/upload";
+  const CLOUDINARY_PRESET = "nextjscategory";
+  const router = useRouter();
+  const id = router.query.id;
+
+    const {register,handleSubmit,formState:{errors},reset}= useForm<Inputs>();
+    useEffect(()=>{
+        (async()=>{
+            const user = await dispatch(readU(id)).unwrap();
+            reset(user);
+            setPreview(user?.avatar);
+        })();
+    },[dispatch,id,reset]);
+    const onSubmit:SubmitHandler<Inputs>=async(values:Inputs)=>{
+        try{
+            if(typeof values.avatar==="object"){
+                const{data}=await uploadImage(
+                    values.avatar[0],
+                    CLOUDINARY_API,
+                    CLOUDINARY_PRESET
+                );
+                values.avatar=data.url
+            }
+            await dispatch(updateU(values)).unwrap();
+            toast.success("Update category successfully !", {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+              });
+              setTimeout(()=>{
+                router.push("/admin/users");
+              },1000);
+        }
+        catch(error){
+            console.log(error);
+        }
+    }
   return (
     <div>
       <div>
@@ -25,7 +80,7 @@ const UpdateUser = (props: Props) => {
         </header>
         <div className="m-auto max-w-7xl pb-36 mt-5">
           <div className="mt-5 md:mt-0 md:col-span-2">
-            <form action="#" id="form-add-user" method="POST">
+            <form action="#" id="form-add-user" method="POST" onSubmit={handleSubmit(onSubmit)}>
               <div className="shadow sm:rounded-md sm:overflow-hidden">
                 <div className="px-4 py-5 bg-white space-y-6 sm:p-6">
                   <div>
@@ -38,6 +93,9 @@ const UpdateUser = (props: Props) => {
                     <div className="mt-1">
                       <input
                         type="text"
+                        {...register("name",{
+                            required:"Vui lòng nhập tên"
+                        })}
                         id="name-add-user"
                         className="shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md p-2"
                         placeholder="Name..."
@@ -54,6 +112,9 @@ const UpdateUser = (props: Props) => {
                     <div className="mt-1">
                       <input
                         type="email"
+                        {...register("email",{
+                            required:"Vui lòng nhập email"
+                        })}
                         id="email-add-user"
                         className="shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md p-2"
                         placeholder="Email..."
@@ -71,6 +132,9 @@ const UpdateUser = (props: Props) => {
                     <div className="mt-1">
                       <input
                         type="password"
+                        {...register("password",{
+                            required:"Vui lòng nhập password"
+                        })}
                         id="password-add-user"
                         className="shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md p-2"
                         placeholder="Password..."
@@ -84,7 +148,10 @@ const UpdateUser = (props: Props) => {
                     </label>
                     <div className="mt-1 w-40 h-40 relative">
                       <img
-                        src="https://res.cloudinary.com/assignmentjs/image/upload/c_thumb,w_200,g_face/v1648723660/img/noimage_mzjwxl.png"
+                        src={
+                            preview||"https://res.cloudinary.com/assignmentjs/image/upload/c_thumb,w_200,g_face/v1648723660/img/noimage_mzjwxl.png"
+                        }
+                        
                         alt="Preview Image"
                         className="h-40 w-40 rounded-sm object-cover"
                       />
@@ -112,7 +179,7 @@ const UpdateUser = (props: Props) => {
                           />
                         </svg>
                         <div className="flex text-sm text-gray-600">
-                          <input id="file-upload" type="file" />
+                          <input {...register("avatar")} onChange={(e:any)=>{setPreview(URL.createObjectURL(e.target.files[0]))}} id="file-upload" type="file" />
                         </div>
                       </div>
                     </div>
