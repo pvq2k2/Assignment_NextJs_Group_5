@@ -9,10 +9,12 @@ import { createU } from "../../../features/user/user.slice";
 import { uploadImage } from "../../../utils";
 
 type Inputs = {
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   password: string;
   avatar: string;
+  role: number
 };
 
 const AddUser = () => {
@@ -20,7 +22,7 @@ const AddUser = () => {
   const dispatch = useDispatch<any>();
   const CLOUDINARY_API =
     "https://api.cloudinary.com/v1_1/assignmentjs/image/upload";
-  const CLOUDINARY_PRESET = "nextjscategory";
+  const CLOUDINARY_PRESET = "nextjsuser";
   const {
     register,
     handleSubmit,
@@ -35,6 +37,8 @@ const AddUser = () => {
         CLOUDINARY_PRESET
       );
       values.avatar = data.url;
+      values.role = Number(values.role);
+      
       await dispatch(createU(values)).unwrap();
       console.log("value", values);
 
@@ -86,12 +90,35 @@ const AddUser = () => {
                       htmlFor="name"
                       className="block text-sm font-medium text-gray-700"
                     >
-                      Name
+                      Frist Name
                     </label>
                     <div className="mt-1">
                       <input
                         type="text"
-                        {...register("name", {
+                        {...register("firstName", {
+                          required: "Vui lòng nhập họ",
+                        })}
+                        id="name-add-user"
+                        className="shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md p-2"
+                        placeholder="Name..."
+                      />
+                      <div className="text-sm mt-0.5 text-red-500">
+                        {errors.firstName?.message}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="name"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Last Name
+                    </label>
+                    <div className="mt-1">
+                      <input
+                        type="text"
+                        {...register("lastName", {
                           required: "Vui lòng nhập tên",
                         })}
                         id="name-add-user"
@@ -99,10 +126,11 @@ const AddUser = () => {
                         placeholder="Name..."
                       />
                       <div className="text-sm mt-0.5 text-red-500">
-                        {errors.name?.message}
+                        {errors.lastName?.message}
                       </div>
                     </div>
                   </div>
+
                   <div>
                     <label
                       htmlFor="email"
@@ -146,6 +174,36 @@ const AddUser = () => {
                       <div className="text-sm mt-0.5 text-red-500">
                         {errors.password?.message}
                       </div>
+                    </div>
+                  </div>
+
+
+                  <div className="col-span-6 sm:col-span-3">
+                    <label
+                      htmlFor="role"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Role
+                    </label>
+                    <select
+                      {...register("role", {
+                        required: "Vui lòng chọn vai trò",
+                      })}
+                      id="role"
+                      name="role"
+                      autoComplete="role-name"
+                      className="mt-1 block w-full py-2 px-3 appearance-none border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    >
+                      <option value="0">Select role</option>
+                          <option value={0}>
+                            User
+                          </option>
+                          <option value={1}>
+                            Admin
+                          </option>
+                    </select>
+                    <div className="text-sm mt-0.5 text-red-500">
+                      {errors.role?.message}
                     </div>
                   </div>
 
