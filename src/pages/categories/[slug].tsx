@@ -24,7 +24,8 @@ const CategoriesDetail = ({ detailCate }: CategoryProps) => {
             </div>
             <div className={styles.product}>
                 {product?.map(item => (
-                <div key={item._id} className={styles.item}>
+            <Link key={item._id} href={`/product/${item._id}`}>
+                <div className={styles.item}>
                     <div className={styles.tranf}>
                         <div className={styles.item_image}>
                             <img src={item.img} alt="" />
@@ -43,6 +44,7 @@ const CategoriesDetail = ({ detailCate }: CategoryProps) => {
 
                     </div>
                 </div>
+                </Link>
                 ))}
                 </div>
                  </div>

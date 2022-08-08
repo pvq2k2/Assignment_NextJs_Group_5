@@ -8,6 +8,7 @@ import { TbSlideshow } from 'react-icons/tb';
 import { LayoutProps } from '../../../models/layout';
 import { MdOutlineCategory } from 'react-icons/md';
 import Link from 'next/link';
+import { FaRegUser } from 'react-icons/fa';
 
 
 const AdminLayout = ({children}: LayoutProps) => {
@@ -84,6 +85,18 @@ const AdminLayout = ({children}: LayoutProps) => {
           </a>
         </Link>
       </li>
+
+      <li>
+        <Link href="/admin/users">
+          <a>
+          <span className={styles.icon}>
+            <FaRegUser className={styles.io} />
+          </span>
+          <span className={styles.title}>User</span>
+          </a>
+        </Link>
+      </li>
+
       {/* <li>
         <a href="#">
           <span className={styles.icon}>

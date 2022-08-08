@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React from 'react'
 import styles from './Banner.module.css';
 import Slider from 'react-slick';
@@ -16,6 +17,15 @@ const Banner = ({listSliders}: sliderProps) => {
         infinite: true,
         nextArrow: <Arrow direction="right" onClick={() => {}} />,
         prevArrow: <Arrow onClick={() => {}} />,
+        responsive: [
+          {
+            breakpoint: 769,
+            settings: {
+              arrow: false,
+              dots: true
+            }
+          },
+        ]
       };
       return (
         <div className={styles.banner}>
@@ -24,7 +34,7 @@ const Banner = ({listSliders}: sliderProps) => {
             <Slider {...settings}>
               {listSliders.map((item)=>(
                 <li key={item._id} className={styles.item}>
-                <a
+                {/* <a
                   href={""}
                   title={"title"}
                   style={{
@@ -32,7 +42,8 @@ const Banner = ({listSliders}: sliderProps) => {
                   }}
                   target=""
                   rel="noreferrer"
-                />
+                /> */}
+                <img src={item.img} alt="" />
               </li>
               ))}
             </Slider>

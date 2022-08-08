@@ -4,10 +4,11 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { signin as signinAction } from '../../features/auth/auth.slice';
 import { signin } from '../../../api/auth';
 import { toast } from 'react-toastify';
+import { IUser } from '../../models/user';
 
 type Signin = {};
 type Inputs = {
@@ -28,7 +29,6 @@ const Signin = (props: Signin) => {
   const onSubmit = async (values: Inputs) => {
     try {
       const user = await signin(values);
-      console.log(user.name);
       
       toast.success("Đăng nhập thành công !", {
         position: "top-right",
@@ -42,9 +42,9 @@ const Signin = (props: Signin) => {
       // reset();
 
       dispatch(signinAction(user));
-
+      
       // admin
-      if (user.role === 1) {
+      if (user.user.role == 1) {
         setTimeout(() => {
           router.push("/admin");
         }, 1000)
@@ -69,7 +69,7 @@ const Signin = (props: Signin) => {
   return (
 
     <div>
-      <div className='xl:w-[1200px] xl:mx-auto mt-10 shadow-inner rounded-lg mx-3 pb-[20px]'>
+      <div className='xl:w-[1200px] xl:mx-auto mt-10 shadow-inner rounded-lg mx-3 py-[20px]'>
         <div className='content grid grid-cols-1 xl:grid-cols-2 lg:grid-cols-2 shadow-lg'>
           <section className='hidden xl:flex lg:flex bg-[#e7f6fb] justify-center rounded-l-lg'>
             <img

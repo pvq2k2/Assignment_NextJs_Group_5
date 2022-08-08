@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import Link from 'next/link'
 import { type } from 'os';
 import React, { useEffect } from 'react'
@@ -26,8 +27,8 @@ const Products = ({listProducts}:ProductProps) => {
         </div>
         <div className={styles.product}>
           {listProducts.map((item)=>(
-            <Link href={`product/${item._id}`}>
-            <div className={styles.item} key={item._id}>
+            <Link key={item._id} href={`product/${item._id}`}>
+            <div className={styles.item}>
            <div className={styles.tranf}>
               <div className={styles.item_image}>
                 <img src={item.img} alt="" />

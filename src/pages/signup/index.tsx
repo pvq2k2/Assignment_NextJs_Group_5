@@ -8,7 +8,8 @@ import { toast } from 'react-toastify';
 import { signup } from '../../../api/auth';
 type Signup = {};
 type Inputs = {
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   password: string;
 };
@@ -51,7 +52,7 @@ const Signup = (props: Signup) => {
   };
   return (
     <div>
-      <div className='xl:w-[1200px] xl:mx-auto mt-10 shadow-inner rounded-lg mx-3 pb-[20px]'>
+      <div className='xl:w-[1200px] xl:mx-auto mt-10 shadow-inner rounded-lg mx-3 py-[20px]'>
         <div className='content grid grid-cols-1 xl:grid-cols-2 lg:grid-cols-2 shadow-lg'>
           <section className='hidden xl:flex lg:flex bg-[#e7f6fb] justify-center rounded-l-lg'>
             <img
@@ -83,18 +84,35 @@ const Signup = (props: Signup) => {
                   <div className='rounded-md shadow-sm -space-y-px'>
                     <div className='pb-4'>
                       <label htmlFor='input-username' className='py-2'>
-                        Họ tên
+                        Họ
                       </label>
                       <input
                         id='input-username'
-                        {...register("name", { required: "Vui lòng nhập họ tên" })}
+                        {...register("firstName", { required: "Vui lòng nhập họ" })}
                         type='text'
                         // required
                         className='appearance-none relative block w-full px-3 py-2 mt-1 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md ease-in-out duration-300 hover:border-blue-700 focus:outline-none focus:ring-blue-700 focus:border-blue-700 focus:z-10 sm:text-sm'
-                        placeholder='Họ tên*'
+                        placeholder='Họ*'
                       />
-                      <p className="text-red-400 text-xs">{errors.name?.message}</p>
+                      <p className="text-red-400 text-xs">{errors.firstName?.message}</p>
                     </div>
+
+
+                    <div className='pb-4'>
+                      <label htmlFor='input-username' className='py-2'>
+                        Tên
+                      </label>
+                      <input
+                        id='input-username'
+                        {...register("lastName", { required: "Vui lòng nhập tên" })}
+                        type='text'
+                        // required
+                        className='appearance-none relative block w-full px-3 py-2 mt-1 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md ease-in-out duration-300 hover:border-blue-700 focus:outline-none focus:ring-blue-700 focus:border-blue-700 focus:z-10 sm:text-sm'
+                        placeholder='Tên*'
+                      />
+                      <p className="text-red-400 text-xs">{errors.lastName?.message}</p>
+                    </div>
+
                     <div className='pb-4'>
                       <label htmlFor='input-password' className='py-2'>
                         Mật khẩu
