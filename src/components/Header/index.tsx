@@ -28,15 +28,15 @@ const Header = (props: Props) => {
   const [showModelSearch, setShowModelSearch] = useState<Boolean>(false);
   const [showNav, setShowNav] = useState<Boolean>(false);
   const isLogged = useSelector((state: any) => state.auth.isLogged);
+  const listCart = useSelector((state: any) => state.cart.cartItems);
   const curentUser = useSelector(
     (state: any) => state.auth.currentUser
   ) as IUser;
   const router = useRouter();
   const dispatch = useDispatch<any>();
-
   const handleSignout = () => {
     dispatch(signout());
-  }
+  };
   useEffect(() => {
     const boxCartElement = boxCart.current!;
     if (showModelCart) {
@@ -102,12 +102,14 @@ const Header = (props: Props) => {
               {isLogged ? (
                 <ul>
                   <li>
-                      <span className="block italic">Xin chào!</span>
-                      <span className="font-bold">{curentUser.user.lastName}</span>
+                    <span className="block italic">Xin chào!</span>
+                    <span className="font-bold">
+                      {curentUser.user.lastName}
+                    </span>
                   </li>
                   {curentUser.user.role == 1 ? (
                     <li>
-                    <Link href="/admin">Trang quản trị</Link>
+                      <Link href="/admin">Trang quản trị</Link>
                     </li>
                   ) : null}
                   <li>
@@ -154,46 +156,58 @@ const Header = (props: Props) => {
                     <span>Cart</span>
                   </div>
                 </div>
-                <div className={styles.c_cart}>
-                  <div className={styles.item}>
-                    <div className={styles.img}>
-                      <img
-                        src="https://i.postimg.cc/PxCCKf4S/121-result.jpg"
-                        alt=""
-                      />
-                    </div>
-                    <div className={styles.detall}>
-                      <div className={styles.name}>
-                        <h3>Product A</h3>
-                      </div>
-                      <div className={styles.price}>
-                        <span>200000đ</span>
-                      </div>
-                      <div className={styles.quantity}>
-                        <span className={styles.title}>Số lượng</span>
-                        <div className={styles.box_control}>
-                          <button
-                            id="down-quantity"
-                            className={styles.down_quantity}
-                          >
-                            <AiOutlineMinus />
-                          </button>
-                          <span className={styles.input_quantity}>2</span>
-                          {/* <input id="input-quantity" type="text" role="spinbutton" aria-valuenow={1} defaultValue={1} className="border w-14 h-8 text-base font-normal box-border text-center cursor-text outline-none" /> */}
-                          <button
-                            id="up-quantity"
-                            className={styles.up_quantity}
-                          >
-                            <AiOutlinePlus />
-                          </button>
+
+                {listCart.length > 0 ? (
+                  <div className={styles.c_cart}>
+                    {listCart.map((item: any) => (
+                      <div key={item._id} className={styles.item}>
+                        <div className={styles.img}>
+                          <img
+                            src={item.img}
+                            alt=""
+                          />
+                        </div>
+                        <div className={styles.detall}>
+                          <div className={styles.name}>
+                            <h3>{item.name}</h3>
+                          </div>
+                          <div className={styles.price}>
+                            <span className="font-semibold">{item.price} đ</span>
+                          </div>
+                          <div className={styles.price}>
+                            <span>Kích cỡ: </span>
+                            <span className="font-semibold">{item.size}</span>
+                          </div>
+                          <div className={styles.quantity}>
+                            <span className={styles.title}>Số lượng</span>
+                            <div className={styles.box_control}>
+                              {/* <button
+                                id="down-quantity"
+                                className={styles.down_quantity}
+                              >
+                                <AiOutlineMinus />
+                              </button> */}
+                              <span className={styles.input_quantity}>{item.quantity}</span>
+                              {/* <input id="input-quantity" type="text" role="spinbutton" aria-valuenow={1} defaultValue={1} className="border w-14 h-8 text-base font-normal box-border text-center cursor-text outline-none" /> */}
+                              {/* <button
+                                id="up-quantity"
+                                className={styles.up_quantity}
+                              >
+                                <AiOutlinePlus />
+                              </button> */}
+                            </div>
+                          </div>
                         </div>
                       </div>
+                    ))}
+
+                    <div className={styles.b_cart}>
+                      <button>Thanh toán !</button>
                     </div>
                   </div>
-                </div>
-                <div className={styles.b_cart}>
-                  <button>Check Out !</button>
-                </div>
+                ) : (
+                  <span className="pt-5 pl-5 inline-block">Không có sản phẩm nào !</span>
+                )}
               </div>
             </div>
           </div>
