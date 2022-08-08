@@ -10,57 +10,63 @@ import { readU, updateU } from "../../../features/user/user.slice";
 import { uploadImage } from "../../../utils";
 
 type Inputs = {
-    name:string;
-    email:string,
-    password:string,
-    avatar:string
+  firstName: string;
+  lastName: string;
+  email: string;
+  avatar: string;
+  role: number;
 };
 
 const UpdateUser = () => {
-    const [preview,setPreview]=useState<string>();
-    const dispatch = useDispatch<any>();
-    const CLOUDINARY_API =
+  const [preview, setPreview] = useState<string>();
+  const dispatch = useDispatch<any>();
+  const CLOUDINARY_API =
     "https://api.cloudinary.com/v1_1/assignmentjs/image/upload";
-  const CLOUDINARY_PRESET = "nextjscategory";
+  const CLOUDINARY_PRESET = "nextjsuser";
   const router = useRouter();
   const id = router.query.id;
 
-    const {register,handleSubmit,formState:{errors},reset}= useForm<Inputs>();
-    useEffect(()=>{
-        (async()=>{
-            const user = await dispatch(readU(id)).unwrap();
-            reset(user);
-            setPreview(user?.avatar);
-        })();
-    },[dispatch,id,reset]);
-    const onSubmit:SubmitHandler<Inputs>=async(values:Inputs)=>{
-        try{
-            if(typeof values.avatar==="object"){
-                const{data}=await uploadImage(
-                    values.avatar[0],
-                    CLOUDINARY_API,
-                    CLOUDINARY_PRESET
-                );
-                values.avatar=data.url
-            }
-            await dispatch(updateU(values)).unwrap();
-            toast.success("Update category successfully !", {
-                position: "top-right",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-              });
-              setTimeout(()=>{
-                router.push("/admin/users");
-              },1000);
-        }
-        catch(error){
-            console.log(error);
-        }
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<Inputs>();
+  useEffect(() => {
+    (async () => {
+      const user = await dispatch(readU(id)).unwrap();
+      reset(user);
+      setPreview(user?.avatar);
+    })();
+  }, [dispatch, id, reset]);
+  const onSubmit: SubmitHandler<Inputs> = async (values: Inputs) => {
+    try {
+      if (typeof values.avatar === "object") {
+        const { data } = await uploadImage(
+          values.avatar[0],
+          CLOUDINARY_API,
+          CLOUDINARY_PRESET
+        );
+        values.avatar = data.url;
+        values.role = Number(values.role);
+      }
+      await dispatch(updateU(values)).unwrap();
+      toast.success("Update user successfully !", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      setTimeout(() => {
+        router.push("/admin/users");
+      }, 1000);
+    } catch (error) {
+      console.log(error);
     }
+  };
   return (
     <div>
       <div>
@@ -80,7 +86,12 @@ const UpdateUser = () => {
         </header>
         <div className="m-auto max-w-7xl pb-36 mt-5">
           <div className="mt-5 md:mt-0 md:col-span-2">
-            <form action="#" id="form-add-user" method="POST" onSubmit={handleSubmit(onSubmit)}>
+            <form
+              action="#"
+              id="form-add-user"
+              method="POST"
+              onSubmit={handleSubmit(onSubmit)}
+            >
               <div className="shadow sm:rounded-md sm:overflow-hidden">
                 <div className="px-4 py-5 bg-white space-y-6 sm:p-6">
                   <div>
@@ -88,20 +99,47 @@ const UpdateUser = () => {
                       htmlFor="name"
                       className="block text-sm font-medium text-gray-700"
                     >
-                      Name
+                      Frist Name
                     </label>
                     <div className="mt-1">
                       <input
                         type="text"
-                        {...register("name",{
-                            required:"Vui lòng nhập tên"
+                        {...register("firstName", {
+                          required: "Vui lòng nhập họ",
                         })}
                         id="name-add-user"
                         className="shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md p-2"
                         placeholder="Name..."
                       />
+                      <div className="text-sm mt-0.5 text-red-500">
+                        {errors.firstName?.message}
+                      </div>
                     </div>
                   </div>
+
+                  <div>
+                    <label
+                      htmlFor="name"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      Last Name
+                    </label>
+                    <div className="mt-1">
+                      <input
+                        type="text"
+                        {...register("lastName", {
+                          required: "Vui lòng nhập tên",
+                        })}
+                        id="name-add-user"
+                        className="shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md p-2"
+                        placeholder="Name..."
+                      />
+                      <div className="text-sm mt-0.5 text-red-500">
+                        {errors.lastName?.message}
+                      </div>
+                    </div>
+                  </div>
+
                   <div>
                     <label
                       htmlFor="email"
@@ -112,8 +150,8 @@ const UpdateUser = () => {
                     <div className="mt-1">
                       <input
                         type="email"
-                        {...register("email",{
-                            required:"Vui lòng nhập email"
+                        {...register("email", {
+                          required: "Vui lòng nhập email",
                         })}
                         id="email-add-user"
                         className="shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md p-2"
@@ -122,23 +160,28 @@ const UpdateUser = () => {
                     </div>
                   </div>
 
-                  <div>
+                  <div className="col-span-6 sm:col-span-3">
                     <label
-                      htmlFor="password"
+                      htmlFor="role"
                       className="block text-sm font-medium text-gray-700"
                     >
-                      Password
+                      Role
                     </label>
-                    <div className="mt-1">
-                      <input
-                        type="password"
-                        {...register("password",{
-                            required:"Vui lòng nhập password"
-                        })}
-                        id="password-add-user"
-                        className="shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md p-2"
-                        placeholder="Password..."
-                      />
+                    <select
+                      {...register("role", {
+                        required: "Vui lòng chọn vai trò",
+                      })}
+                      id="role"
+                      name="role"
+                      autoComplete="role-name"
+                      className="mt-1 block w-full py-2 px-3 appearance-none border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    >
+                      <option value="0">Select role</option>
+                      <option value={0}>User</option>
+                      <option value={1}>Admin</option>
+                    </select>
+                    <div className="text-sm mt-0.5 text-red-500">
+                      {errors.role?.message}
                     </div>
                   </div>
 
@@ -149,9 +192,9 @@ const UpdateUser = () => {
                     <div className="mt-1 w-40 h-40 relative">
                       <img
                         src={
-                            preview||"https://res.cloudinary.com/assignmentjs/image/upload/c_thumb,w_200,g_face/v1648723660/img/noimage_mzjwxl.png"
+                          preview ||
+                          "https://res.cloudinary.com/assignmentjs/image/upload/c_thumb,w_200,g_face/v1648723660/img/noimage_mzjwxl.png"
                         }
-                        
                         alt="Preview Image"
                         className="h-40 w-40 rounded-sm object-cover"
                       />
@@ -179,7 +222,16 @@ const UpdateUser = () => {
                           />
                         </svg>
                         <div className="flex text-sm text-gray-600">
-                          <input {...register("avatar")} onChange={(e:any)=>{setPreview(URL.createObjectURL(e.target.files[0]))}} id="file-upload" type="file" />
+                          <input
+                            {...register("avatar")}
+                            onChange={(e: any) => {
+                              setPreview(
+                                URL.createObjectURL(e.target.files[0])
+                              );
+                            }}
+                            id="file-upload"
+                            type="file"
+                          />
                         </div>
                       </div>
                     </div>
@@ -202,5 +254,5 @@ const UpdateUser = () => {
     </div>
   );
 };
-UpdateUser.Layout=AdminLayout
+UpdateUser.Layout = AdminLayout;
 export default UpdateUser;
