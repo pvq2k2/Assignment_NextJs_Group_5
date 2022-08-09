@@ -1,0 +1,120 @@
+.content {
+    position: relative;
+    width: 100%;
+    padding: 20px;
+    header {
+      display: flex;
+      justify-content: space-between;
+      padding: 20px 50px;
+      border-radius: 10px;
+  
+      .title {
+        font-size: 30px;
+        font-weight: bold;
+        color: rgb(25, 25, 25);
+      }
+  
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        background-color: rgb(36, 16, 255);
+        color: white;
+        padding: 8px 16px;
+        border-radius: 10px;
+        border: none;
+  
+        .io {
+          font-size: 20px;
+          margin-right: 10px;
+        }
+        &:hover {
+          background-color: rgba(89, 74, 255, 1);
+        }
+      }
+    }
+  
+    main {
+      position: relative;
+      min-height: 500px;
+      overflow: auto;
+      background: white;
+      padding: 20px;
+      margin-top: 30px;
+      box-shadow: 0 7px 25px rgb(0 0 0 / 15%);
+      border-radius: 20px;
+  
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+  
+        thead td {
+          font-weight: 600;
+        }
+        tr {
+          color: #222;
+          border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+          td {
+            padding: 10px;
+  
+            &:last-child
+            {
+              text-align: center;
+            }
+            // &:nth-child(3) {
+            //   text-align: center;
+            // }
+          }
+  
+          &:last-child {
+            border-bottom: none;
+          }
+  
+          .action {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            font-size: 20px;
+  
+            .edit:hover {
+              transition: all 0.5s ease-in-out;
+              color: #ffc107;
+              cursor: pointer;
+            }
+            .delete:hover {
+              transition: all 0.5s ease-in-out;
+              color: #dc3545;
+              cursor: pointer;
+            }
+          }
+        }
+  
+  
+      }
+    }
+  }
+  
+  @media (max-width: 991px) {
+    .content {
+      header {
+        padding: 10px;
+      }
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .content {
+      header {
+        padding: 10px;
+  
+        .title {
+          font-size: 20px;
+        }
+  
+        .btn {
+          padding: 8px;
+        }
+      }
+    }
+  }
+  

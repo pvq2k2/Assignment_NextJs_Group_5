@@ -59,11 +59,11 @@
 
           &:last-child,
           &:nth-child(2) {
-            text-align: end;
-          }
-          &:nth-child(3) {
             text-align: center;
           }
+          // &:nth-child(3) {
+          //   text-align: center;
+          // }
         }
 
         &:last-child {
@@ -79,18 +79,17 @@
           .edit:hover {
             transition: all 0.5s ease-in-out;
             color: #ffc107;
+            cursor: pointer;
           }
           .delete:hover {
             transition: all 0.5s ease-in-out;
             color: #dc3545;
+            cursor: pointer;
           }
         }
       }
 
-      tbody tr:hover {
-        background: blue;
-        color: white;
-      }
+
     }
   }
 }

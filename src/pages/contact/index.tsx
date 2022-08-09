@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import React from 'react';
-import style from './contact.module.scss';
+import style from './styles/contact.module.scss';
 import { BsEnvelope, BsTelephone, BsPinMap } from 'react-icons/bs';
 
 const Contact = () => {

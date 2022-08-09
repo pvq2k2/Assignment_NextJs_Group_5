@@ -19,8 +19,8 @@
     position: fixed;
     width: 300px;
     height: 100%;
-    background: blue;
-    border-left: 10px solid blue;
+    background: #3131a2;
+    border-left: 10px solid #3131a2;
     transition: 0.5s;
     overflow: hidden;
 
@@ -175,8 +175,7 @@
     margin-right: 15px;
     width: 40px;
     height: 40px;
-    border-radius: 50%;
-    overflow: hidden;
+    // overflow: hidden;
     cursor: pointer;
 
     img {
@@ -186,6 +185,68 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      border-radius: 50%;
+    }
+
+    .box {
+      position: absolute;
+      width: 150px;
+      text-align: center;
+      background-color: white;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      z-index: 999;
+      top: 55px;
+      left: -100px;
+
+      ul {
+        position: relative;
+        list-style-type: none;
+
+        li {
+          padding: 10px;
+
+          &:hover {
+            background-color: blue;
+            color: white;
+            transition: all 0.3s linear;
+          }
+        }
+        li:first-child {
+          padding: 10px;
+          border-top-left-radius: 10px;
+          border-top-right-radius: 10px;
+
+          &:hover {
+            cursor: default;
+            background-color: white;
+            color: black;
+            transition: all 0.3s linear;
+          }
+        }
+        li:last-child {
+          padding: 10px;
+          border-bottom-left-radius: 10px;
+          border-bottom-right-radius: 10px;
+          &:hover {
+            background-color: blue;
+            color: white;
+            transition: all 0.3s linear;
+          }
+        }
+      }
+      &::before {
+        content: "";
+        position: absolute;
+        transform: rotate(45deg);
+        width: 16px;
+        height: 16px;
+        top: -9px;
+        background-color: white;
+        right: 20px;
+        border-left: 1px solid #ccc;
+        border-top: 1px solid #ccc;
+      }
     }
   }
 @media (max-width: 991px) {
