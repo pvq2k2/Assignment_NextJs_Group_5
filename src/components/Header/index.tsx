@@ -104,7 +104,7 @@ const Header = (props: Props) => {
                   <li>
                     <span className="block italic">Xin chào!</span>
                     <span className="font-bold">
-                      {curentUser.user.lastName}
+                      {curentUser.user.firstName}
                     </span>
                   </li>
                   {curentUser.user.role == 1 ? (

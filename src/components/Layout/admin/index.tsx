@@ -9,13 +9,28 @@ import { LayoutProps } from '../../../models/layout';
 import { MdOutlineCategory } from 'react-icons/md';
 import Link from 'next/link';
 import { FaRegUser } from 'react-icons/fa';
+import { useDispatch, useSelector } from 'react-redux';
+import { IUser } from '../../../models/user';
+import { useRouter } from 'next/router';
+import { signout } from '../../../features/auth/auth.slice';
+import PrivateRoute from '../../PrivateRoute';
 
 
 const AdminLayout = ({children}: LayoutProps) => {
+  const boxUser = useRef<HTMLDivElement>(null);
   const navigationElement = useRef<HTMLDivElement>(null);
   const mainElement = useRef<HTMLDivElement>(null);
   const [toggle, setToggle] = useState<boolean>(false);
-
+  const [showModelUser, setShowModelUser] = useState<Boolean>(false);
+  const curentUser = useSelector(
+    (state: any) => state.auth.currentUser
+  ) as IUser;
+  const router = useRouter();
+  const dispatch = useDispatch<any>();
+  const handleSignout = () => {
+    dispatch(signout());
+    router.push('/signin');
+  };
   useEffect(() => {
     const navigationE = navigationElement.current!;
     const mainE = mainElement.current!;
@@ -29,9 +44,16 @@ const AdminLayout = ({children}: LayoutProps) => {
     }
   }, [toggle])
 
-
+  useEffect(() => {
+    const boxUserElement = boxUser.current!;
+    if (showModelUser) {
+      boxUserElement.style.display = "block";
+    } else {
+      boxUserElement.style.display = "none";
+    }
+  }, [showModelUser]);
   return (
-    <>
+    <PrivateRoute>
 {/* =============== Navigation ================ */}
 <div className={styles.container}>
   <div ref={navigationElement} className={styles.navigation}>
@@ -143,8 +165,27 @@ const AdminLayout = ({children}: LayoutProps) => {
           <IoSearchOutline className={styles.io} />
         </label>
       </div>
-      <div className={styles.user}>
-        <img src="https://i.postimg.cc/DymsM897/customer01.jpg" />
+      <div className={styles.user} onClick={() => setShowModelUser(!showModelUser)}>
+        <img src={curentUser.user?.avatar} />
+        {/* ---------------------- */}
+        <div ref={boxUser} className={styles.box}>
+                <ul>
+                  <li>
+                    <span className="block italic">Xin chào!</span>
+                    <span className="font-bold">
+                      {curentUser.user?.firstName}
+                    </span>
+                  </li>
+                    <li>
+                      <Link href="/">Trang chủ</Link>
+                    </li>
+                  <li>
+                    <div onClick={() => handleSignout()}>Đăng xuất</div>
+                  </li>
+                </ul>
+            </div>
+
+        {/* --------------------- */}
       </div>
     </div>
 
@@ -154,7 +195,7 @@ const AdminLayout = ({children}: LayoutProps) => {
   </div>
 </div>
 
-    </>
+    </PrivateRoute>
   )
 }
 
