@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
+import Head from "next/head";
 import Link from "next/link";
 import React from "react";
 
@@ -6,6 +8,9 @@ type Props = {};
 const ProductsList = (props: Props) => {
   return (
     <div className="flex flex-row">
+      <Head>
+        <title>SHOP | Sản phẩm</title>
+      </Head>
       <div className="p-5 ml-10 min-w-[250px]">
         {/* <h2 className="text-2xl">Filter</h2> */}
         <div className="mt-5">

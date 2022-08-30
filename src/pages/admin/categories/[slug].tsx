@@ -1,4 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
+
+import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
@@ -32,11 +34,11 @@ const CategoriesUpdate = () => {
 
   useEffect(() => {
     (async () => {
-      console.log(slug);
+      // console.log(slug);
 
       const category = await dispatch(readC(slug)).unwrap();
 
-      console.log(category);
+      // console.log(category);
 
       reset(category.category);
       setPreview(category.category?.img);
@@ -44,7 +46,7 @@ const CategoriesUpdate = () => {
   }, [dispatch, slug, reset]);
 
   const onSubmit: SubmitHandler<Inputs> = async (values: Inputs) => {
-    console.log("value", values);
+    // console.log("value", values);
     try {
       if (typeof values.img === "object") {
         const { data } = await uploadImage(
@@ -55,7 +57,7 @@ const CategoriesUpdate = () => {
         values.img = data.url;
       }
       await dispatch(updateC(values)).unwrap();
-      console.log("value", values);
+      // console.log("value", values);
 
       toast.success("Update category successfully !", {
         position: "top-right",
@@ -77,6 +79,9 @@ const CategoriesUpdate = () => {
   };
   return (
     <div>
+            <Head>
+                <title>Category Update</title>
+            </Head>
       <header className="bg-white shadow">
         <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex justify-between">
           <h1 className="text-3xl font-bold text-gray-900">Category Update</h1>

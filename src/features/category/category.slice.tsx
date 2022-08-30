@@ -19,7 +19,7 @@ export const getAllC = createAsyncThunk("category/getall", async () => {
 
 export const readC = createAsyncThunk(
   "category/read",
-  async (slug: string) => {
+  async (slug: any) => {
     const res = await readCategory(slug);
     return res;
   }
@@ -27,7 +27,7 @@ export const readC = createAsyncThunk(
 
 export const createC = createAsyncThunk(
   "category/create",
-  async (category: ICategory) => {
+  async (category: any) => {
     const res = await createCategory(category);
     return res;
   }
@@ -35,7 +35,7 @@ export const createC = createAsyncThunk(
 
 export const updateC = createAsyncThunk(
   "category/update",
-  async (category: ICategory) => {
+  async (category: any) => {
     const res = await updateCategory(category);
     return res;
   }
@@ -56,8 +56,8 @@ const categorySlice = createSlice({
     build.addCase(getAllC.fulfilled,(state,{payload})=>{
       state.categories=payload||[]
       }),
-      build.addCase(removeC.fulfilled,(state,{payload})=>{
-          state.categories= state.categories.filter((item) => item.slug !== payload?.slug)
+      build.addCase(removeC.fulfilled,(state, action: any)=>{
+          state.categories= state.categories.filter((item) => item.slug !== action.payload.slug)
       }),
       build.addCase(createC.fulfilled,(state,{payload})=>{
           state.categories.push(payload as ICategory)

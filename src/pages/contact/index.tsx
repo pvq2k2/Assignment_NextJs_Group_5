@@ -1,13 +1,17 @@
+/* eslint-disable react/no-unescaped-entities */
 import Link from 'next/link';
 import React from 'react';
 import style from './styles/contact.module.scss';
 import { BsEnvelope, BsTelephone, BsPinMap } from 'react-icons/bs';
+import Head from 'next/head';
 
 const Contact = () => {
   return (
     <div className={style.contact}>
+            <Head>
+                <title>SHOP | Liên hệ</title>
+            </Head>
       <div className='contact'>
-
         <div className='grid lg:grid-cols-2  md:grid-cols-1 py-[40px]  '>
           <div className='px-[30px]'>
             <h4 className='text-[25px] font-extrabold text-slate-500'>

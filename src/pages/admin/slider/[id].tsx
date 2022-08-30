@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
@@ -32,11 +33,11 @@ const SlideUpdate = () => {
 
   useEffect(() => {
     (async () => {
-      console.log("id",id);
+      // console.log("id",id);
 
       const slide = await dispatch(readS(id)).unwrap();
 
-      console.log(slide);
+      // console.log(slide);
 
       reset(slide);
       setPreview(slide?.img);
@@ -44,7 +45,7 @@ const SlideUpdate = () => {
   }, [dispatch, id, reset]);
 
   const onSubmit: SubmitHandler<Inputs> = async (values: Inputs) => {
-    console.log("value", values);
+    // console.log("value", values);
     try {
       if (typeof values.img === "object") {
         const { data } = await uploadImage(
@@ -55,7 +56,7 @@ const SlideUpdate = () => {
         values.img = data.url;
       }
       await dispatch(updateS(values)).unwrap();
-      console.log("value", values);
+      // console.log("value", values);
 
       toast.success("Update slide successfully !", {
         position: "top-right",
@@ -77,6 +78,9 @@ const SlideUpdate = () => {
   };
   return (
     <div>
+            <Head>
+                <title>Slider Update</title>
+            </Head>
       <header className="bg-white shadow">
         <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex justify-between">
           <h1 className="text-3xl font-bold text-gray-900">Slide Update</h1>

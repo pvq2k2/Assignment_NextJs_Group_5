@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import Head from 'next/head';
 import Link from 'next/link';
 import React, { useEffect } from 'react';
 import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai';
@@ -13,12 +14,12 @@ type Props = {};
 const ProductManager = (props: Props) => {
   const products = useSelector((state: any) => state.product.products);
   const dispatch = useDispatch<any>();
-  console.log(products);
+  // console.log(products);
   useEffect(() => {
     dispatch(getAllP());
   }, [dispatch, products]);
 
-  console.log(products);
+  // console.log(products);
 
   const handleRemove = (id: any) => {
     Swal.fire({
@@ -38,6 +39,9 @@ const ProductManager = (props: Props) => {
   };
   return (
     <div className={styles.content}>
+          <Head>
+                <title>Product Management</title>
+          </Head>
       <header>
         <div className={styles.title}>Product Manager</div>
         <Link href='products/add' className='sm:ml-3'>

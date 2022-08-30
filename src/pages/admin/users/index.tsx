@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import Head from 'next/head';
 import Link from 'next/link';
 import React, { useEffect } from 'react';
 import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai';
@@ -39,6 +40,9 @@ const UserManager = () => {
   }
   return (
     <div className={styles.content}>
+            <Head>
+                <title>User Management</title>
+            </Head>
       <header>
         <div className={styles.title}>
           <p>Users Manager</p>{' '}

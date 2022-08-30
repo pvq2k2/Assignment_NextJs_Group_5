@@ -1,29 +1,34 @@
+/* eslint-disable @next/next/no-img-element */
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
+import Head from 'next/head';
 import Link from 'next/link';
 import React from 'react'
 import { getAllCategory, readCategory } from '../../../api/category';
 import { ICategory } from '../../models/category';
 import styles from './CategoriesDetail.module.css';
 
-type CategoryProps = {
-    detailCate: ICategory;
-};
+// type CategoryProps = {
+//     detailCate: ICategory;
+// };
 
-const CategoriesDetail = ({ detailCate }: CategoryProps) => {
-    console.log(detailCate);
-    const cate = detailCate.category;
-    const product = detailCate.products;
+const CategoriesDetail = ({ detailCate }: any) => {
+    // console.log(detailCate);
+    const cate = detailCate?.category;
+    const product = detailCate?.products;
     return (
         <div className={styles.container}>
+            <Head>
+                <title>Danh mục | {cate?.name}</title>
+            </Head>
             <div className={styles.header}>
                 <ul className={styles.directional}>
                     <li><Link href="/"><span>Trang chủ</span></Link></li>
                     <li>/</li>
-                    <li>{cate.name}</li>
+                    <li>{cate?.name}</li>
                 </ul>
             </div>
             <div className={styles.product}>
-                {product?.map(item => (
+                {product?.map((item: any) => (
             <Link key={item._id} href={`/product/${item._id}`}>
                 <div className={styles.item}>
                     <div className={styles.tranf}>

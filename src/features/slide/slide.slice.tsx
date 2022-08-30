@@ -19,7 +19,7 @@ export const getAllS = createAsyncThunk("slide/getall", async () => {
 
 export const readS = createAsyncThunk(
   "slide/read",
-  async (id: string | number) => {
+  async (id: any) => {
     const res = await readSlide(id);
     return res;
   }
@@ -27,7 +27,7 @@ export const readS = createAsyncThunk(
 
 export const createS = createAsyncThunk(
   "slide/create",
-  async (slide: ISlide) => {
+  async (slide: any) => {
     const res = await createSlide(slide);
     return res;
   }
@@ -35,7 +35,7 @@ export const createS = createAsyncThunk(
 
 export const updateS = createAsyncThunk(
   "slide/update",
-  async (slide: ISlide) => {
+  async (slide: any) => {
     const res = await updateSlide(slide);
     return res;
   }
@@ -56,8 +56,8 @@ const slideSlice = createSlice({
     build.addCase(getAllS.fulfilled,(state,{payload})=>{
       state.slides=payload||[]
       }),
-      build.addCase(removeS.fulfilled,(state,{payload})=>{
-          state.slides= state.slides.filter((item) => item._id !== payload?._id)
+      build.addCase(removeS.fulfilled,(state, action: any)=>{
+          state.slides= state.slides.filter((item) => item._id !== action.payload._id)
       }),
       build.addCase(createS.fulfilled,(state,{payload})=>{
           state.slides.push(payload as ISlide)

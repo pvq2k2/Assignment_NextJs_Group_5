@@ -1,13 +1,19 @@
+/* eslint-disable react/no-unescaped-entities */
 /* eslint-disable @next/next/no-img-element */
 import EmptyLayout from '../components/Layout/empty'
 import Link from 'next/link'
 import React from 'react'
+import Head from 'next/head'
 
 type Props = {}
 
 const NotFound = (props: Props) => {
   return (
+    
     <div className="flex items-center justify-center min-h-screen overflow-hidden">
+      <Head>
+        <title>Not Found</title>
+      </Head>
       <div className='text-center'>
       <div className="icon">
       <img src='https://i.postimg.cc/YSXbj3Lp/404-Error-rafiki.png' className="mx-auto w-[500px] relative -top-10" alt='404'/>

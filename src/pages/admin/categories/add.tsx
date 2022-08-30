@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import Head from "next/head";
 import Link from "next/link";
 import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -33,7 +34,7 @@ const CategoriesAdd = () => {
           const { data } = await uploadImage(values.img[0], CLOUDINARY_API, CLOUDINARY_PRESET);
           values.img = data.url;
           await dispatch(createC(values)).unwrap();
-          console.log("value", values);
+          // console.log("value", values);
     
           toast.success("Add category successfully !", {
             position: "top-right",
@@ -55,6 +56,9 @@ const CategoriesAdd = () => {
 
   return (
     <div>
+            <Head>
+                <title>Category Add</title>
+            </Head>
       <header className="bg-white shadow">
         <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex justify-between">
           <h1 className="text-3xl font-bold text-gray-900">Category Add</h1>

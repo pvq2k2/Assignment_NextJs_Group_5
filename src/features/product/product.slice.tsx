@@ -25,7 +25,7 @@ export const getAllP = createAsyncThunk("product/getall", async () => {
 
 export const readP = createAsyncThunk(
   "product/read",
-  async (id: number | string) => {
+  async (id: any) => {
     const res = await readProduct(id);
     return res;
   }
@@ -33,7 +33,7 @@ export const readP = createAsyncThunk(
 
 export const createP = createAsyncThunk(
   "product/create",
-  async (product: IProduct) => {
+  async (product: any) => {
     const res = await createProduct(product);
     return res;
   }
@@ -41,7 +41,7 @@ export const createP = createAsyncThunk(
 
 export const updateP = createAsyncThunk(
   "product/update",
-  async (product: IProduct) => {
+  async (product: any) => {
     const res = await updateProduct(product);
     return res;
   }
@@ -62,8 +62,8 @@ const productSlice = createSlice({
     build.addCase(getAllP.fulfilled,(state,{payload})=>{
       state.products=payload||[]
       }),
-      build.addCase(removeP.fulfilled,(state,{payload})=>{
-          state.products= state.products.filter((item) => item._id !== payload?._id)
+      build.addCase(removeP.fulfilled,(state, action: any)=>{
+          state.products= state.products.filter((item) => item._id !== action.payload._id)
       }),
       build.addCase(createP.fulfilled,(state,{payload})=>{
           state.products.push(payload as IProduct)

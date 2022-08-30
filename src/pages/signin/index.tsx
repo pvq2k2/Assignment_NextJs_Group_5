@@ -9,6 +9,7 @@ import { signin as signinAction } from '../../features/auth/auth.slice';
 import { signin } from '../../../api/auth';
 import { toast } from 'react-toastify';
 import { IUser } from '../../models/user';
+import Head from 'next/head';
 
 type Signin = {};
 type Inputs = {
@@ -67,8 +68,10 @@ const Signin = (props: Signin) => {
     }
   };
   return (
-
     <div>
+      <Head>
+        <title>Đăng nhập</title>
+      </Head>
       <div className='xl:w-[1200px] xl:mx-auto mt-10 shadow-inner rounded-lg mx-3 py-[20px]'>
         <div className='content grid grid-cols-1 xl:grid-cols-2 lg:grid-cols-2 shadow-lg'>
           <section className='hidden xl:flex lg:flex bg-[#e7f6fb] justify-center rounded-l-lg'>

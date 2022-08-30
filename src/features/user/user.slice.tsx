@@ -19,7 +19,7 @@ export const getAllU = createAsyncThunk("user/getall", async () => {
 
 export const readU = createAsyncThunk(
   "user/read",
-  async (id: number | string) => {
+  async (id: any) => {
     const res = await readUser(id);
     return res;
   }
@@ -27,7 +27,7 @@ export const readU = createAsyncThunk(
 
 export const createU = createAsyncThunk(
   "user/create",
-  async (user: IUser) => {
+  async (user: any) => {
     const res = await createUser(user);
     return res;
   }
@@ -35,7 +35,7 @@ export const createU = createAsyncThunk(
 
 export const updateU = createAsyncThunk(
   "user/update",
-  async (user: IUser) => {
+  async (user: any) => {
     const res = await updateUser(user);
     return res;
   }
@@ -56,8 +56,8 @@ const productSlice = createSlice({
     build.addCase(getAllU.fulfilled,(state,{payload})=>{
       state.users=payload||[]
       }),
-      build.addCase(removeU.fulfilled,(state,{payload})=>{
-          state.users= state.users.filter((item) => item._id !== payload?._id)
+      build.addCase(removeU.fulfilled,(state, action: any)=>{
+          state.users= state.users.filter((item) => item._id !== action.payload._id)
       }),
       build.addCase(createU.fulfilled,(state,{payload})=>{
           state.users.push(payload as IUser)
