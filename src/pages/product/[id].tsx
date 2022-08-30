@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from "next";
+import Head from "next/head";
 import Link from "next/link";
 import React, { useState } from "react";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
@@ -9,11 +10,11 @@ import { getAllProduct, readProduct } from "../../../api/product";
 import { addToCart } from "../../features/cart/cart.slice";
 import { IProduct } from "../../models/product";
 import styles from "./productDetail.module.css";
-type DetailProductProps = {
-  detailProduct: IProduct;
-};
+// type DetailProductProps = {
+//   detailProduct: IProduct;
+// };
 
-const ProductDetail = ({ detailProduct }: DetailProductProps) => {
+const ProductDetail = ({ detailProduct }: any) => {
   const listCart = useSelector((state: any) => state.cart.cartItems);
   const isLogged = useSelector((state: any) => state.auth.isLogged);
   const dispatch = useDispatch<any>();
@@ -94,6 +95,9 @@ const ProductDetail = ({ detailProduct }: DetailProductProps) => {
   // console.log("list cart ", listCart);
   return (
     <div>
+      <Head>
+        <title>{detailProduct?.name}</title>
+      </Head>
       <div className={styles.container}>
         <div className={styles.heder}>
           <ul className={styles.directional}>
@@ -101,19 +105,19 @@ const ProductDetail = ({ detailProduct }: DetailProductProps) => {
               <Link href="/">Trang chủ</Link>
             </li>
             <li>/</li>
-            <li>{detailProduct.name}</li>
+            <li>{detailProduct?.name}</li>
           </ul>
         </div>
         <div className={styles.products_detail}>
           <div className={styles.item_detail}>
             <div className={styles.item_image}>
-              <img src={detailProduct.img} alt="" />
+              <img src={detailProduct?.img} alt="" />
             </div>
             <div className={styles.item_info}>
-              <h1 className={styles.info_name}>{detailProduct.name}</h1>
+              <h1 className={styles.info_name}>{detailProduct?.name}</h1>
               <div className={styles.info_price}>
                 <p>
-                  {detailProduct.price} <span className={styles.small}>đ</span>
+                  {detailProduct?.price} <span className={styles.small}>đ</span>
                 </p>
               </div>
               <div className={styles.row}>
@@ -192,7 +196,7 @@ const ProductDetail = ({ detailProduct }: DetailProductProps) => {
               </div>
               <div className={styles.info_desc}>
                 <h3 className={styles.titel_desc}>Chi tiết:</h3>
-                <p>{detailProduct.description}</p>
+                <p>{detailProduct?.description}</p>
               </div>
             </div>
           </div>

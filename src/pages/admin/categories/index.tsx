@@ -8,6 +8,7 @@ import AdminLayout from "../../../components/Layout/admin";
 import { getAllC, removeC } from "../../../features/category/category.slice";
 import styles from "./styles/CategoriesManager.module.scss";
 import Swal from 'sweetalert2';
+import Head from "next/head";
 
 const CategoriesManager = () => {
   const categories = useSelector((state: any) => state.category.categories);
@@ -18,7 +19,7 @@ const CategoriesManager = () => {
     dispatch(getAllC());
   }, [dispatch, categories]);
 
-  console.log(categories);
+  // console.log(categories);
 
   const handleRemove=(slug:any)=>{
     Swal.fire({
@@ -42,6 +43,9 @@ const CategoriesManager = () => {
   }
   return (
     <div>
+            <Head>
+                <title>Category Management</title>
+            </Head>
       <div className={styles.content}>
         <header>
           <div className={styles.title}>Categories Manager</div>

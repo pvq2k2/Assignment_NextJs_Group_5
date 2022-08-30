@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react-hooks/exhaustive-deps */
+import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
@@ -36,14 +37,14 @@ const UpdateProduct = () => {
 
   useEffect(() => {
     (async () => {
-      console.log(id);
+      // console.log(id);
 
       const product = await dispatch(readP(id)).unwrap();
 
       const categories = await dispatch(getAllC());
 
-      console.log(cateProducts);
-      console.log(product);
+      // console.log(cateProducts);
+      // console.log(product);
 
       reset(product);
       
@@ -51,17 +52,17 @@ const UpdateProduct = () => {
     })();
   }, [dispatch, id, reset]);
 
-  console.log(cateProducts);
+  // console.log(cateProducts);
 
   const onSubmit: SubmitHandler<Inputs> = async (values: Inputs) => {
-    console.log("value", values);
+    // console.log("value", values);
     try {
       if (typeof values.img === "object") {
         const { data } = await uploadImage(values.img[0], CLOUDINARY_API, CLOUDINARY_PRESET);
         values.img = data.url;
       }
       await dispatch(updateP(values)).unwrap();
-      console.log("value", values);
+      // console.log("value", values);
 
       toast.success("Update product successfully !", {
         position: "top-right",
@@ -83,6 +84,9 @@ const UpdateProduct = () => {
   };
   return (
     <div>
+            <Head>
+                <title>Product Update</title>
+            </Head>
       <div>
         <div>
           <header className="bg-white shadow">

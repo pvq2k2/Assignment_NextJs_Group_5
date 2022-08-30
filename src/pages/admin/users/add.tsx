@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
+import Head from "next/head";
 import Link from "next/link";
 import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -40,7 +42,7 @@ const AddUser = () => {
       values.role = Number(values.role);
       
       await dispatch(createU(values)).unwrap();
-      console.log("value", values);
+      // console.log("value", values);
 
       toast.success("Add user successfully !", {
         position: "top-right",
@@ -60,6 +62,9 @@ const AddUser = () => {
   };
   return (
     <div>
+            <Head>
+                <title>User Add</title>
+            </Head>
       <div>
         <header className="bg-white shadow">
           <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex justify-between">

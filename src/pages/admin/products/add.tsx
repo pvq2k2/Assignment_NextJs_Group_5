@@ -9,6 +9,7 @@ import { createP } from "../../../features/product/product.slice";
 import { getAllC } from "../../../features/category/category.slice";
 import { uploadImage } from "../../../utils";
 import AdminLayout from "../../../components/Layout/admin";
+import Head from "next/head";
 type Inputs = {
   name: string;
   price: number;
@@ -35,13 +36,13 @@ const ProductAdd = () => {
   useEffect(() => {
     dispatch(getAllC());
   }, [dispatch]);
-  console.log(cateProducts);
+  // console.log(cateProducts);
   const onSubmit: SubmitHandler<Inputs> = async (values: Inputs) => {
     try {
       const { data } = await uploadImage(values.img[0], CLOUDINARY_API, CLOUDINARY_PRESET);
       values.img = data.url;
       await dispatch(createP(values)).unwrap();
-      console.log("value", values);
+      // console.log("value", values);
 
       toast.success("Add product successfully !", {
         position: "top-right",
@@ -61,6 +62,9 @@ const ProductAdd = () => {
   };
   return (
     <div>
+            <Head>
+                <title>Product Add</title>
+            </Head>
       <div>
         <header className="bg-white shadow">
           <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex justify-between">

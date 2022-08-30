@@ -6,12 +6,16 @@ import styles from './styles/dashboard.module.scss'
 import React from 'react'
 import { IoCartOutline, IoCashOutline, IoChatbubbleOutline, IoEyeOutline } from 'react-icons/io5'
 import AdminLayout from '../../components/Layout/admin'
+import Head from 'next/head'
 
 type Props = {}
 
 const Dashboard = (props: Props) => {
   return (
     <div>
+    <Head>
+      <title>Dashboard</title>
+    </Head>
 <div>
   {/* ======================= Cards ================== */}
   <div className={styles.cardBox}>

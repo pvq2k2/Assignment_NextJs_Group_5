@@ -8,6 +8,7 @@ import AdminLayout from "../../../components/Layout/admin";
 import styles from "./styles/SlideManager.module.scss";
 import Swal from 'sweetalert2';
 import { getAllS, removeS } from "../../../features/slide/slide.slice";
+import Head from "next/head";
 
 const SlideManager = () => {
   const slider = useSelector((state: any) => state.slide.slides);
@@ -39,6 +40,9 @@ const SlideManager = () => {
   }
   return (
     <div>
+         <Head>
+                <title>Slider Management</title>
+        </Head>
       <div className={styles.content}>
         <header>
           <div className={styles.title}>Slide Manager</div>

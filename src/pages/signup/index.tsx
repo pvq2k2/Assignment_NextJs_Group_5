@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
+import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -52,6 +53,9 @@ const Signup = (props: Signup) => {
   };
   return (
     <div>
+      <Head>
+        <title>Đăng ký</title>
+      </Head>
       <div className='xl:w-[1200px] xl:mx-auto mt-10 shadow-inner rounded-lg mx-3 py-[20px]'>
         <div className='content grid grid-cols-1 xl:grid-cols-2 lg:grid-cols-2 shadow-lg'>
           <section className='hidden xl:flex lg:flex bg-[#e7f6fb] justify-center rounded-l-lg'>

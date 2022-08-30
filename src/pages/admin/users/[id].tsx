@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
+import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
@@ -69,6 +71,9 @@ const UpdateUser = () => {
   };
   return (
     <div>
+            <Head>
+                <title>User Update</title>
+            </Head>
       <div>
         <header className="bg-white shadow">
           <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex justify-between">

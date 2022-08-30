@@ -11,7 +11,7 @@ type sliderProps = {
 }
 
 const Banner = ({listSliders}: sliderProps) => {
-  console.log(listSliders)
+  // console.log(listSliders)
     const settings = {
         autoplay: true,
         infinite: true,
