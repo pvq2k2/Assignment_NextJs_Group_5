@@ -6,7 +6,7 @@ import { TiPlus } from "react-icons/ti";
 import { useDispatch, useSelector } from "react-redux";
 import AdminLayout from "../../../components/Layout/admin";
 import { getAllC, removeC } from "../../../features/category/category.slice";
-import styles from "./styles/CategoriesManager.module.scss";
+import styles from "../../../pages/admin/categories/styles/categoriesManager.module.scss";
 import Swal from 'sweetalert2';
 import Head from "next/head";
 
